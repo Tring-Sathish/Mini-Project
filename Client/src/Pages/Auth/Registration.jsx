@@ -164,7 +164,6 @@ function Registration() {
                     onBlur={formik.handleBlur}
                     name="f_name"
                     id="f_name"
-                    placeholder="Ali"
                     autoComplete="on"
                     className="input input-bordered h-10 w-full max-w-xs"
                   />
@@ -184,7 +183,6 @@ function Registration() {
                     name="username"
                     id="username"
                     type="text"
-                    placeholder="Ahmad"
                     autoComplete="on"
                     className="input input-bordered h-10 w-4/5 max-w-xs"
                   />
