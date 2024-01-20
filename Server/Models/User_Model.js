@@ -18,10 +18,10 @@ const userSchema = new mongo.Schema({
         unique: true
     },
 
-    company_name: {
-        type: String,
-        required: [true, 'Company name is must']
-    },
+    // company_name: {
+    //     type: String,
+    //     required: [true, 'Company name is must']
+    // },
 
     password: {
         type: String,

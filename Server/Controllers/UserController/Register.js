@@ -290,10 +290,10 @@ For account verification this link has been sent kindly click on verify  button 
 
 const register = async (req, res, next) => {
   // -> Extracting input values
-  const { f_name, username, email, company_name, password } = req.body;
+  const { f_name, username, email, password } = req.body;
 
   // -> Checking if values are empty
-  if (!f_name || !username || !email || !company_name || !password) {
+  if (!f_name || !username || !email || !password) {
     return res.status(400).json({ error: "All fields are required." });
   }
 
@@ -360,7 +360,7 @@ const register = async (req, res, next) => {
     f_name: f_name,
     username: username,
     email: email,
-    company_name: company_name,
+    // company_name: company_name,
     password: hashedPassword,
   });
   try {

@@ -1,4 +1,10 @@
 import React from "react";
+import Home from "../../assets/icons/home.svg";
+import Employees from "../../assets/icons/employees.svg";
+import Candidates from "../../assets/icons/candidates.svg";
+import Jobs from "../../assets/icons/jobs.svg";
+import Report from "../../assets/icons/reports.svg";
+import Settings from "../../assets/icons/settings.svg";
 import { Link, useNavigate } from "react-router-dom";
 
 function LeftMenuBar() {
@@ -39,11 +45,11 @@ function LeftMenuBar() {
                   />
                 </svg>{" "}
               </div>
-              {/* <Link to={"/"}> */}
+              <Link to={"/"}>
                 <div className="inline ml-2 mt-1">
                   <button className="inline navMenuFont">Home</button>
                 </div>
-              {/* </Link> */}
+              </Link>
             </div>
             {/* EMPLOYEES */}
             { org_id && <div className="w-full bg-white hover:bg-blue-100 transition-all duration-[850ms] hover:rounded-lg ease-out py-2  ml-8 mb-2 flex items-center">
@@ -66,11 +72,11 @@ function LeftMenuBar() {
                 />
               </svg>
             </div>
-            {/* <Link to={"/employees"}> */}
+            <Link to={""}>
               <div className="inline ml-2 mt-1">
                 <button className="inline navMenuFont">Employees</button>
               </div>
-            {/* </Link> */}
+            </Link>
           </div>}
 
             {/* CANDIDATES */}
@@ -93,11 +99,11 @@ function LeftMenuBar() {
                   />
                 </svg>
               </div>
-              {/* <Link to={"/Candidates"}> */}
+              <Link to={""}>
                 <div className="inline ml-2 mt-1">
                   <button className="inline navMenuFont">Candidates</button>
                 </div>
-              {/* </Link>s */}
+              </Link>
             </div>}
 
             {/* JOBS */}
@@ -130,11 +136,11 @@ function LeftMenuBar() {
                   />
                 </svg>
               </div>
-              {/* <Link to={"/jobs"}> */}
+              <Link to={"/jobs"}>
                 <div className="inline ml-2 mt-1">
                   <button className="inline navMenuFont">Jobs</button>
                 </div>
-              {/* </Link> */}
+              </Link>
             </div>}
 
             {/* REPORTS */}
@@ -165,15 +171,15 @@ function LeftMenuBar() {
                   />
                 </svg>
               </div>
-              {/* <Link to={"/report"}> */}
+              <Link to={""}>
                 <div className="inline ml-2 mt-1">
                   <button className="inline navMenuFont">Statistics</button>
                 </div>
-              {/* </Link> */}
+              </Link>
             </div>}
 
             {/* SETTINGS */}
-            { org_id && <div className="w-full bg-white hover:bg-blue-100 transition-all duration-[850ms] hover:rounded-lg ease-out py-2  ml-8 mb-2 flex items-center">
+            <div className="w-full bg-white hover:bg-blue-100 transition-all duration-[850ms] hover:rounded-lg ease-out py-2  ml-8 mb-2 flex items-center">
               <div className="w-1/5">
                 <svg
                   className="m-auto"
@@ -193,12 +199,12 @@ function LeftMenuBar() {
                   />
                 </svg>
               </div>
-              {/* <Link to={"/settings"}> */}
+              <Link to={"/settings"}>
                 <div className="inline ml-2 mt-1">
                   <button className="inline navMenuFont">Settings</button>
                 </div>
-              {/* </Link> */}
-            </div>}
+              </Link>
+            </div>
 
             {/* view jobs */}
             { !org_id && <div className="w-full bg-white hover:bg-blue-100 transition-all duration-[850ms] hover:rounded-lg ease-out py-2  ml-8 mb-2 flex items-center">
@@ -229,11 +235,11 @@ function LeftMenuBar() {
                   />
                 </svg>
               </div>
-              {/* <Link to={"/portal/job"}> */}
+              <Link to={"/portal/job"}>
                 <div className="inline ml-2 mt-1">
                   <button className="inline navMenuFont">view jobs</button>
                 </div>
-              {/* </Link> */}
+              </Link>
             </div>}
           </div>
         </div>

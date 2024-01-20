@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { object, string, ref } from "yup";
 import MainButton from "../../Components/Common/MainButton";
+import ErrorLogo from "../../assets/icons/error.png";
 
 function Registration() {
   const [error, Seterror] = useState();
@@ -27,9 +28,9 @@ function Registration() {
     email: string()
       .email("*Follow abc@domain.com format")
       .required("*Email is must"),
-    company_name: string()
-      .max(30, "*Name is too long")
-      .required("*Company name is must"),
+    // company_name: string()
+    //   .max(30, "*Name is too long")
+    //   .required("*Company name is must"),
     password: string()
       .max(25, "*password is too long")
       .matches(
@@ -46,7 +47,7 @@ function Registration() {
     f_name: "",
     username: "",
     email: "",
-    company_name: "",
+    // company_name: "",
     password: "",
     confirm_password: "",
   };
@@ -164,6 +165,7 @@ function Registration() {
                     onBlur={formik.handleBlur}
                     name="f_name"
                     id="f_name"
+                    placeholder="Ali"
                     autoComplete="on"
                     className="input input-bordered h-10 w-full max-w-xs"
                   />
@@ -183,6 +185,7 @@ function Registration() {
                     name="username"
                     id="username"
                     type="text"
+                    placeholder="Ahmad"
                     autoComplete="on"
                     className="input input-bordered h-10 w-4/5 max-w-xs"
                   />
@@ -215,7 +218,7 @@ function Registration() {
                 ) : null}
               </div>
 
-              <div className="mb-0">
+              {/* <div className="mb-0">
                 <label className="label line1">
                   Company Name{" "}
                   {formik.errors.company_name && formik.touched.company_name ? (
@@ -236,8 +239,8 @@ function Registration() {
                   name="company_name"
                   id="company_name"
                 />
-                {/* ERROR MSG */}
-              </div>
+                {/* ERROR MSG 
+              </div> */}
 
               <div className="flex mb-0">
                 <div className="w-1/2 mr-1">
