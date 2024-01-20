@@ -16,7 +16,7 @@ function CreatedJobElement({ data, setData }) {
         return (
           <div
             key={index}
-            onClick={(event) => handleJob(e._id)}
+            // onClick={(event) => handleJob(e._id)}
             title="Job"
             className="bg-white hover:bg-gray-100  hover:border hover:border-solid hover:border-gray-300 flex flex-wrap  items-center w-80 pl-4 pr-4 pt-2 modalShadow cursor-pointer "
           >
