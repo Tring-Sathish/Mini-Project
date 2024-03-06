@@ -290,10 +290,10 @@ For account verification this link has been sent kindly click on verify  button 
 
 const register = async (req, res, next) => {
   // -> Extracting input values
-  const { f_name, username, email, password } = req.body;
+  const { f_name, username, email, company_name, password } = req.body.input.arg1;
 
   // -> Checking if values are empty
-  if (!f_name || !username || !email || !password) {
+  if (!f_name || !username || !email || !company_name || !password) {
     return res.status(400).json({ error: "All fields are required." });
   }
 
@@ -338,7 +338,7 @@ const register = async (req, res, next) => {
   if (passwordCheck == false) {
     return res
       .status(400)
-      .json({ error: "Password mimumum length should be 8 and max 40" });
+      .json({ message: "Password mimumum length should be 8 and max 40" });
   }
   // -> Checking if email OR username is not already token
   const existingUser = await userModel.findOne({
@@ -346,7 +346,7 @@ const register = async (req, res, next) => {
   });
   if (existingUser) {
     // console.log('user alreay exists in system');
-    return res.status(409).json({ error: "Username or email already taken." });
+    return res.status(409).json({ message: "Username or email already taken." });
 
   }
 
@@ -360,7 +360,7 @@ const register = async (req, res, next) => {
     f_name: f_name,
     username: username,
     email: email,
-    // company_name: company_name,
+    company_name: company_name,
     password: hashedPassword,
   });
   try {
@@ -372,7 +372,7 @@ const register = async (req, res, next) => {
     console.log("An error occured:>  " + error);
     return res
       .status(500)
-      .json({ error: "An error occurred while saving the user." });
+      .json({ message: "An error occurred while saving the user." });
   }
   // -> Returning success message
 

@@ -102,7 +102,7 @@ function ForgetPassword() {
           </div>
         </form>
 
-        <a href="#" className="heading4 text-center m-auto block mt-6">
+        <a href="/login" className="heading4 text-center m-auto block mt-6">
           Return to Login
         </a>
       </div>

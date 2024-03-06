@@ -8,7 +8,8 @@ const userModel = require("../../Models/User_Model.js");
 dotenv.config(); 
 
 const login = async (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body.input.arg1;
+    console.log(12,req.body.input.arg1);
     if (!email || !password) {
         return res.status(400).json({ error: "All fields are required." });
     }

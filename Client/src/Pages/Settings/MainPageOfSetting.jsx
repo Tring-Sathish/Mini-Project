@@ -18,7 +18,7 @@ function MainPageOfSetting() {
         </div>
 
         <div className="p-6 mt-12 flex flex-wrap gap-20 w-9/12 m-auto">
-          <Link to={"profile"}>
+          {/* <Link to={"profile"}>
             <div className="w-48 h-auto bg-white p-3 rounded-md shadow-md cursor-pointer hover:bg-gray-50 hover:modalShadow">
               <img className="m-auto" src={ProfileIcon} alt="" />
 
@@ -26,30 +26,32 @@ function MainPageOfSetting() {
                 Edit Profile
               </h2>
             </div>
-          </Link>
+          </Link> */}
 
           {/* //2nd value */}
-
+          <Link to={"/forgetpwd"}>
           <div className="w-48 h-auto bg-white p-3 rounded-md shadow-md cursor-pointer hover:bg-gray-50 hover:modalShadow justify-center items-center">
-            <img className="m-auto" src={TeamIcon} alt="" />
+            <img className="m-auto" style={{height: 90,}} src="https://t3.ftcdn.net/jpg/04/75/01/24/360_F_475012493_x7oLL5mrWTm25OCRluB2fZkn0onfSEqu.jpg" alt="" />
 
-            <h2 className="text-center heading3 font-medium mt-4 mb-0">
-              Team Members
+            <h2 className="text-center heading3 font-medium m-auto mt-4 mb-0">
+              Change Password
             </h2>
           </div>
+          </Link>
+          
 
           {/* 3rd value */}
 
-          <div className="w-48 h-auto bg-white p-3 rounded-md shadow-md cursor-pointer hover:bg-gray-50 hover:modalShadow">
+          {/* <div className="w-48 h-auto bg-white p-3 rounded-md shadow-md cursor-pointer hover:bg-gray-50 hover:modalShadow">
             <img className="m-auto" src={TempleteIcon} alt="" />
 
             <h2 className="text-center heading3 font-medium mt-4 mb-0">
               Templetes
             </h2>
-          </div>
+          </div> */}
 
           {/* 4th value */}
-          {/* 
+{/*           
           <div className="w-48 h-auto bg-white p-3 rounded-md shadow-md cursor-pointer hover:bg-gray-50 hover:modalShadow">
             <img className="m-auto" src={CareerPage} alt="" />
 

@@ -72,7 +72,7 @@ function JobDetails() {
                     <>
                       <div
                         key={index}
-                        // onClick={(event) => handleNavigation(e._id)}
+                        onClick={(event) => handleNavigation(e._id)}
                         className=" cursor-pointer  p-6  mt-9 w-11/12 flex  m-auto  rounded-lg border border-solid border-gray-200 hover:bg-gray-100"
                       >
                         {/* CANIDATE PROFILE PICTURE */}

@@ -77,7 +77,23 @@ function AddNewEmployee() {
             </label>
             <input
               type="text"
-              placeholder="HumzaSajid@Microsoft.com"
+              placeholder="abc@gmail.com"
+              className="input input-bordered w-full max-w-xs"
+              value={employee.email}
+                onChange={(e) =>
+                  setEmployee((old) => ({
+                    ...old,
+                    email: e.target.value,
+                  }))
+                }
+            />
+
+            <label className="label">
+              <span className="label-text heading4">Role </span>
+            </label>
+            <input
+              type="text"
+              placeholder="abc@gmail.com"
               className="input input-bordered w-full max-w-xs"
               value={employee.email}
                 onChange={(e) =>

@@ -1,0 +1,27 @@
+actions:
+  - name: Register
+    definition:
+      kind: synchronous
+      handler: https://organic-seriously-dane.ngrok-free.app/register
+      forward_client_headers: true
+  - name: signIn
+    definition:
+      kind: synchronous
+      handler: https://organic-seriously-dane.ngrok-free.app/login
+      forward_client_headers: true
+      request_transform:
+        method: POST
+        query_params: {}
+        template_engine: Kriti
+        version: 2
+custom_types:
+  enums: []
+  input_objects:
+    - name: SampleInput
+    - name: SignInInput
+    - name: RegisterInput
+  objects:
+    - name: SampleOutput
+    - name: SignInOutput
+    - name: RegisterOutput
+  scalars: []

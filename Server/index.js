@@ -44,7 +44,7 @@ app.use("/settings", SettingRouter);
 
 
 //-----| App listening |------
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8082;
 
 
 

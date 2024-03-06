@@ -6,6 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import NoUser from "../../assets/illustrations/no_user.svg";
 function MainAreaOfHiredCandidateDetails() {
   const [user, setUser] = useState();
+  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/")
+  const [resumeSrc, setResumeSrc] = useState("http://127.0.0.1:8081/uploads/")
   let { id } = useParams();
 
   useEffect(() => {
@@ -48,6 +50,7 @@ function MainAreaOfHiredCandidateDetails() {
         {user?.length !== 0 ? (
           user?.map((e, index) => {
             var educationLevelLastValue = e?.level.slice(-1)[0];
+            var img = e?.profilePic.split("\\")?.[1];
             return (
               <div
                 key={index}
@@ -60,7 +63,7 @@ function MainAreaOfHiredCandidateDetails() {
                     <div className="m-auto ">
                       <img
                         width={150}
-                        src={e?.ResumeURL}
+                        src={imageSrc + img }
                         alt=""
                         className="rounded-full "
                       />

@@ -5,7 +5,7 @@ function ProfileSetup() {
   const navigate = useNavigate();
   return (
     <div className="">
-      {/* <h2 className="text-center heading2b pt-14">
+      <h2 className="text-center heading2b pt-14">
         Start setting up your company account
       </h2>
 
@@ -18,7 +18,7 @@ function ProfileSetup() {
         >
           Let's Start
         </button>
-      </div> */}
+      </div>
     </div>
   );
 }

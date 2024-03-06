@@ -4,6 +4,7 @@ import axios from "axios";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import Illustration from "../../assets/illustrations/no_user.svg";
+import { Center } from "@chakra-ui/react";
 
 
 function MainPageOfEmployees() {
@@ -99,9 +100,11 @@ function MainPageOfEmployees() {
       //     </div>      
       //   </div>))} 
       // </div>
-      <div >
-        <div className="overflow-x-auto  shadow-2xl flex">
-          <table className="table bg-white w-32">
+        <div className="overflow-x-auto flex" style={{
+          alignItems: Center,
+          marginLeft: "20%",
+        }}>
+          <table className="table bg-white w-32 flex">
             {/* head */}
             <thead>
               <tr>
@@ -142,7 +145,6 @@ function MainPageOfEmployees() {
             </tbody>
           </table>
         </div>
-      </div>
       }
       </div>
     </div>

@@ -223,8 +223,11 @@ function TopNavigationBar({ title }) {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 {/* //this need to be dynamic */}
+              { profileURL != undefined ?              
                 <img src={"http://127.0.0.1:8081/uploads/" + "" + profileURL} />
-              </div>
+                : <img src={ProfileIcon} />
+              }             
+            </div>
             </label>
             <ul
               tabIndex={0}
@@ -280,7 +283,10 @@ function TopNavigationBar({ title }) {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 {/* //this need to be dynamic */}
+                { profileURL != undefined ?              
                 <img src={"http://127.0.0.1:8081/uploads/" + "" + profileURL} />
+                : <img src={ProfileIcon} />
+              }             
               </div>
             </label>
             {showList && <ul
