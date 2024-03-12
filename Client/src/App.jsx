@@ -43,8 +43,6 @@ import NotPageFound404 from "./Pages/Dashboard/NotPageFound404";
 function App() {
 
   const org_id = localStorage.getItem("organization_id")
-  console.log(org_id)
-  // const [org_registered,setOrg_registered] = useState(false);
   return (
     <div>
       <Routes>
