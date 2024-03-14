@@ -25,6 +25,7 @@ input RegisterInput {
   password: String!
   email: String!
   company_name: String!
+  confirm_password: String!
   f_name: String!
 }
 
@@ -36,6 +37,7 @@ type SampleOutput {
 type SignInOutput {
   token: String!
   message: String!
+  id: String!
 }
 
 type RegisterOutput {

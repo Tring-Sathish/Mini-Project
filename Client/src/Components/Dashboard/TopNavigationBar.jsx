@@ -4,30 +4,29 @@ import { useState } from "react";
 import ProfileIcon from "../../assets/icons/profileIcon.png";
 import { MdMenu } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { getProfilePic } from "../../../src/Pages/hasura-query.ts";
 
 function TopNavigationBar({ title }) {
   const [profileURL, setProfileURL] = useState();
   const [showMenu, setShowMenu] = useState(false);
   const [showList, setShowList] = useState(false);
-  useEffect(() => {
-    // axios POST request
-    const options = {
-      url: "http://localhost:8080/getProfilePic",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: {
-        organization_id: localStorage.getItem("organization_id"),
-      },
-    };
 
-    axios(options).then((response) => {
-      if (response.status == 200) {
-        setProfileURL(response.data.split("\\")[1]);
+  const [getPic] = useLazyQuery(getProfilePic, {
+    onCompleted: (data) => {
+      setProfileURL(data?.organizations?.[0]?.logo?.split("\\")[1]);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
+
+  useEffect(() => {
+    getPic({
+      variables : {
+        org_id: localStorage.getItem("organization_id")
       }
-    });
+    })
   }, [0]);
   const navigate = useNavigate();
   return (

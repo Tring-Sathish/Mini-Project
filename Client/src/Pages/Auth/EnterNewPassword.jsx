@@ -2,7 +2,7 @@ import { Alert, AlertIcon } from "@chakra-ui/react";
 import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { object, string, ref } from "yup";
 
 function EnterNewPassword() {
@@ -10,6 +10,7 @@ function EnterNewPassword() {
   const [success, SetSuccess] = useState(false);
   const [id, SetIDParam] = useState();
   const navigate = useNavigate();
+  const location = useLocation();
   const dataSchema = object({
     password: string()
       .max(25, "*password is too long")

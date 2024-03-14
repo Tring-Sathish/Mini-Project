@@ -12,6 +12,7 @@ function VerifyOPT() {
   const [inputCode, SetinputCode] = useState([]);
   const [error, SetError] = useState();
   const [params, SetParam] = useState();
+  const location = useLocation();
 
   const navigate = useNavigate();
   const handle = (e) => {

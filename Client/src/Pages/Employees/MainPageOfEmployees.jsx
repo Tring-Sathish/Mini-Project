@@ -5,54 +5,47 @@ import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import Illustration from "../../assets/illustrations/no_user.svg";
 import { Center } from "@chakra-ui/react";
-
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { getProfilePic, getAllEmployees } from "../../../src/Pages/hasura-query.ts";
 
 function MainPageOfEmployees() {
 
   const [employee,setEmployee] = useState();
   useEffect(() => {
     // axios POST request
-    const options = {
-      url: "http://localhost:8080/getEmployee",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: {
-        organization_id: localStorage.getItem("organization_id"),
-      },
-    };
-  
-    axios(options).then((response) => {
-      if (response.status == 200) {
-        setEmployee(response.data.employee);
+    getEmployee({
+      variables: {
+        orgId: localStorage.getItem("organization_id")
       }
-      // console.log(response);
-    });
+    })
   }, []);
 
   const [profileURL, setProfileURL] = useState();
 
-  useEffect(() => {
-    // axios POST request
-    const options = {
-      url: "http://localhost:8080/getProfilePic",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: {
-        organization_id: localStorage.getItem("organization_id"),
-      },
-    };
+  const [getPic] = useLazyQuery(getProfilePic, {
+    onCompleted: (data) => {
+      setProfileURL(data?.organizations?.[0]?.logo?.split("\\")[1]);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
 
-    axios(options).then((response) => {
-      if (response.status == 200) {
-        setProfileURL(response.data.split("\\")[1]);
+  const [getEmployee] = useLazyQuery(getAllEmployees, {
+    onCompleted: (data) => {
+      setEmployee(data?.employees)
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
+
+  useEffect(() => {
+    getPic({
+      variables : {
+        org_id: localStorage.getItem("organization_id")
       }
-    });
+    })
   }, [0]);
 
   return (

@@ -6,30 +6,27 @@ import CreatedJobElement from "../../Components/Dashboard/CreateJob/CreatedJobEl
 import CreateJobHeadaer from "../../Components/Dashboard/CreateJob/CreateJobHeadaer";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { getAllJobsById } from "../../Pages/hasura-query.ts";
+
 function CreateJob() {
   const [data, setData] = useState();
+  const [getJob] = useLazyQuery(getAllJobsById, {
+    onCompleted: (data) => {
+      setData(data?.jobs);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
   useEffect(() => {
-    const fetchData = async () => {
-      // axios POST request
-      const options = {
-        url: "http://localhost:8080/job/get-jobs",
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json;charset=UTF-8",
-        },
-        data: { id: localStorage.getItem("organization_id") },
-      };
-
-      axios(options).then((response) => {
-        // console.log(response);
-
-        setData(response.data.jobs);
-      });
-    };
-
-    fetchData();
-  }, []);
+      getJob({
+        variables: {
+          orgId: localStorage.getItem("organization_id"),
+          filter: {}
+        }
+      })
+  }, [0]);
 
   return (
     <div className="flex bg-white">

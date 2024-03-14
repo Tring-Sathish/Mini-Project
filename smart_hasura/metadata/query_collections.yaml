@@ -1,1 +1,25 @@
-[]
+- name: allowed-queries
+  definition:
+    queries:
+      - name: signUp
+        query: |
+          mutation signUp ($username: String!, $password: String!, $email: String!, $company_name: String!, $confirm_password: String!, $f_name: String!) {
+            Register(arg1: {company_name:$company_name,confirm_password:$confirm_password,email:$email,f_name:$f_name,password:$password,username:$username}) {
+              message
+            }
+          }
+      - name: signIn
+        query: |
+          mutation signIn ($email: String!, $password: String!) {
+            signIn(arg1: {email:$email,password:$password}) {
+              message
+              token
+            }
+          }
+      - name: getProfilePic
+        query: |
+          query getProfilePic ($org_id: uuid!) {
+            organizations(where: {id:{_eq:$org_id}}) {
+              logo
+            }
+          }

@@ -21,7 +21,7 @@ export const storeAllCandidatesDetails = createSlice({
         },
 
         errorFetchingCandidatesData(state, action) {
-            state.loading = false,
+            state.loading = false;
                 state.error = action.payload;
 
         },

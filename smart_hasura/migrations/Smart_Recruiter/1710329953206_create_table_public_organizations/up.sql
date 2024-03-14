@@ -1,0 +1,2 @@
+CREATE TABLE "public"."organizations" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "username" text NOT NULL, "organization_name" text, "phoneNo" text, "website" text, "logo" text, "departments" text[], "office_address" text NOT NULL, "office_city" text, "office_country" text, "fb_url" text, "linkedIn_url" text, "insta_url" text, "yt_url" text, PRIMARY KEY ("id") , UNIQUE ("username"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

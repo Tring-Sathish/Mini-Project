@@ -1,0 +1,66 @@
+table:
+  name: organizations
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - departments
+        - fb_url
+        - insta_url
+        - linkedIn_url
+        - logo
+        - office_address
+        - office_city
+        - office_country
+        - organization_name
+        - phoneNo
+        - region
+        - username
+        - website
+        - yt_url
+        - id
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - departments
+        - fb_url
+        - insta_url
+        - linkedIn_url
+        - logo
+        - office_address
+        - office_city
+        - office_country
+        - organization_name
+        - phoneNo
+        - region
+        - username
+        - website
+        - yt_url
+        - id
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - departments
+        - fb_url
+        - insta_url
+        - linkedIn_url
+        - logo
+        - office_address
+        - office_city
+        - office_country
+        - organization_name
+        - phoneNo
+        - region
+        - username
+        - website
+        - yt_url
+      filter: {}
+      check: {}
+    comment: ""

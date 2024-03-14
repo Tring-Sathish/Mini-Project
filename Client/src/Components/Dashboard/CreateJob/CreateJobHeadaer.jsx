@@ -3,43 +3,36 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import DownImg from "../../../assets/icons/down.svg";
+import { getAllJobsById } from "../../../Pages/hasura-query.ts"
+import { useLazyQuery, useMutation } from "@apollo/client";
+
 function CreateJobHeadaer({ setData }) {
   const [jobStatus, SetJobStatus] = useState(false);
   const [departmentStatus, SetDepartmentStatus] = useState(false);
+  const [getJob] = useLazyQuery(getAllJobsById, {
+    onCompleted: (data) => {
+      setData(data?.jobs);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
 
   const filterShowClosedJobs = () => {
-    // axios POST request
-    const options = {
-      url: "http://localhost:8080/job/get-jobs/closed",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: { id: localStorage.getItem("organization_id") },
-    };
-
-    axios(options).then((response) => {
-      // console.log(response);
-      setData(response.data.jobs);
-    });
+    getJob({
+      variables: {
+        orgId: localStorage.getItem("organization_id"),
+        filter: {"job_status": { "_eq": "closed"}}
+      }
+    })    
   };
   const filterShowActiveJobs = () => {
-    // axios POST request
-    const options = {
-      url: "http://localhost:8080/job/get-jobs/active",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: { id: localStorage.getItem("organization_id") },
-    };
-
-    axios(options).then((response) => {
-      // console.log(response);
-      setData(response.data.jobs);
-    });
+    getJob({
+      variables: {
+        orgId: localStorage.getItem("organization_id"),
+        filter: {"job_status": { "_eq": "active"}}
+      }
+    })
   };
 
   return (

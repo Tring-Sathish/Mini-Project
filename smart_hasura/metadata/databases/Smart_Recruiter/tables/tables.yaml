@@ -1,1 +1,7 @@
-- "!include public_demo.yaml"
+- "!include public_candidates.yaml"
+- "!include public_check.yaml"
+- "!include public_comments.yaml"
+- "!include public_employees.yaml"
+- "!include public_jobs.yaml"
+- "!include public_organizations.yaml"
+- "!include public_users.yaml"

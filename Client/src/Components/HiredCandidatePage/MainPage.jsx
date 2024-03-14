@@ -1,29 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { getAllJobsById } from "../../Pages/hasura-query.ts"
 
 function MainPage() {
   const [createdJobs, setCreatedJobs] = useState();
 
+  const [getJob] = useLazyQuery(getAllJobsById, {
+    onCompleted: (data) => {
+      setCreatedJobs(data?.jobs);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
   useEffect(() => {
-    const fetchData = () => {
-      // axios POST request
-      const options = {
-        url: "http://localhost:8080/job/get-jobs",
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json;charset=UTF-8",
-        },
-        data: { id: localStorage.getItem("organization_id") },
-      };
-
-      axios(options).then((response) => {
-        setCreatedJobs(response.data.jobs);
-      });
-    };
-
-    fetchData();
+      getJob({
+        variables: {
+          orgId: localStorage.getItem("organization_id"),
+          filter: {}
+        }
+      })
   }, [0]);
 
   const navigate = useNavigate();

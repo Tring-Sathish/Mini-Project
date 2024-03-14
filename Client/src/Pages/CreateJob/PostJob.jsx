@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { insertJob, insertJobs } from "../../Pages/hasura-query.ts"
+
 
 import Confetti from "react-confetti";
 function PostJob() {
@@ -29,48 +32,57 @@ function PostJob() {
   const [formData, setFormData] = useState({
     postition: "",
     office_location: count?.[8][1],
-    department: count?.[6][1][0],
+    department: count?.[13][1][0],
     job_type: "",
     no_of_seats: "",
     salary_range_from: "",
     salary_range_upto: "",
   });
+  const Postjob = {
+    jobPosition: formData.postition,
+    officeLocation: formData.office_location,
+    department: formData.department,
+    jobType: formData.job_type,
+    numberOfSeats: formData.no_of_seats,
+    salaryRangeFrom: formData.salary_range_from,
+    salaryRangeUpto: formData.salary_range_upto,
+    job_description: description,
+    city: org_data[0],
+    country: org_data[1],
+    org_name: org_data[3],
+    org_id: org_data[2]
+}
 
-  const imgFilehandler = (e) => {
-    if (e.target.files.length !== 0) {
-      uploadimg((imgfile) => [
-        ...imgfile,
-        URL.createObjectURL(e.target.files[0]),
-      ]);
+  const [ insertJob ] = useMutation(insertJobs,{
+    onCompleted: (data) => {
+      setAPIFetched(true);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+      alert("something went wrong try again");
     }
-  };
+  })
+  // const imgFilehandler = (e) => {
+  //   if (e.target.files.length !== 0) {
+  //     uploadimg((imgfile) => [
+  //       ...imgfile,
+  //       URL.createObjectURL(e.target.files[0]),
+  //     ]);
+  //   }
+  // };
 
   //From here i need to have the following data (dynamicity)
   //1-) Office Location 2-) Departments
 
   const handleSubmit = async () => {
     // axios POST request
-    const options = {
-      url: "http://localhost:8080/job/post",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: {
-        form: formData,
-        description: description,
-        org_details: org_data,
-      },
-    };
-
-    axios(options).then((response) => {
-      if (response.status == 200) {
-        setAPIFetched(true);
-      } else {
-        alert("something went wrong try again");
+    insertJob({
+      variables: {
+        data: {
+          ...Postjob
+        }
       }
-    });
+    })
   };
   console.log(formData);
   return (
@@ -212,7 +224,7 @@ function PostJob() {
                 <option disabled defaultChecked>
                   Select Department{" "}
                 </option>
-                {count?.[6][1].map((option) => (
+                {count?.[13][1].map((option) => (
                   <option key={option} value={option}>
                     {option}
                   </option>

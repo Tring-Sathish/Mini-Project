@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import NavigationTab from "../Dashboard/ProfileCreation/NavigationTab";
 import {
@@ -9,11 +9,12 @@ import {
 } from "react-icons/fa";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useState } from "react";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { insertOrganization, getUserById, updataUserById } from "../../Pages/hasura-query.ts"
 
 function Profile_Social3() {
   const location = useLocation();
   // const { basicInfo, image } = location.state;
-  console.log(location.state);
 
   // => A new object which can handle old + new value to pass to the next component using useNavigate()
   const [socialDetails, setSocialDetails] = useState({
@@ -22,8 +23,23 @@ function Profile_Social3() {
     linkedin_url: "asd",
     yt_url: "dsa",
   });
-  console.log(socialDetails);
 
+  const [username, setUserName ] = useState();
+  const [getUser] = useLazyQuery(getUserById, {
+    onCompleted: (data) => {
+    setUserName(data?.users?.[0]?.username);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
+  useEffect(()=> {
+    getUser({
+      variables: {
+        id: localStorage.getItem("id")
+      }
+    })
+  },[])
   //An data object to pass it to the next Route
   const Office_Profile = {
     office_details: location.state,
@@ -34,23 +50,24 @@ function Profile_Social3() {
   // var { Office_Profile } = location.state;
 
   const data = {
-    name: Office_Profile.office_details.office_Value.name,
-    phone: Office_Profile.office_details.office_Value.phone_no,
-    website_link: Office_Profile.office_details.office_Value.website,
+    username: username,
+    organization_name: Office_Profile.office_details.office_Value.name,
+    phoneNo: Office_Profile.office_details.office_Value.phone_no,
+    website: Office_Profile.office_details.office_Value.website,
     // logo_url: Office_Profile.office_details.office_Value.logo.image,
-    departments: {
+    departments: [{
       list: Office_Profile.office_details.office_Value.department.options,
-    },
+    }],
 
-    address: Office_Profile.office_details.office_Value.office_location,
+    office_address: Office_Profile.office_details.office_Value.office_location,
 
-    city: Office_Profile.office_details.office_Value.city,
-    country: Office_Profile.office_details.office_Value.country,
+    office_city: Office_Profile.office_details.office_Value.city,
+    office_country: Office_Profile.office_details.office_Value.country,
     region: Office_Profile.office_details.office_Value.region,
-    fb_link: Office_Profile.social_links.facebook_url,
-    insta_link: Office_Profile.social_links.insta_url,
-    linkedin_link: Office_Profile.social_links.linkedin_url,
-    yt_link: Office_Profile.social_links.yt_url,
+    fb_url: Office_Profile.social_links.facebook_url,
+    insta_url: Office_Profile.social_links.insta_url,
+    linkedIn_url: Office_Profile.social_links.linkedin_url,
+    yt_url: Office_Profile.social_links.yt_url,
   };
   const logo = Office_Profile.office_details.office_Value.logo.image;
   // const [team_details, setTeamDetails] = useState({
@@ -65,36 +82,69 @@ function Profile_Social3() {
     // team_details: team_details,
   };
   const [type, setType] = useState();
-  const post_Method = () => {
+  const [updateUser] = useMutation(updataUserById, {
+    fetchPolicy: "network-only",
+    onCompleted:(data) => {},
+    onError:(e) => { console.log("Error", e); }
+  });
 
-    const options = {
-      url: "http://localhost:8080/profile/setup",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token"),
-        "Content-Type": "multipart/form-data",
-        // "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: cv,
-    };
-    axios(options)
-      .then((response) => {
-        console.log(" i am running");
-        console.log(response.status);
-        if (response.status == 200) {
+  const [insertOrg] = useMutation(insertOrganization, {
+    fetchPolicy: "network-only",
+    onCompleted: (data) => {
           navigate("/profilesetup/sucess");
-        } else if (response.status == 400) {
-          alert("Organization is already registered!");
-        } else if (response.status == 404) {
-          alert("NO USER WITH THIS USERNAME EXIST IN THE SYSTEM");
-        } else {
-          alert("Something went wrong, try again with proper data");
+          localStorage.setItem("organization_id", data?.insert_organizations?.returning?.[0]?.id);
+          updateUser({
+            variables: {
+              id : localStorage.getItem("id"),
+              data : {
+                "org_registered": true,
+                "org_id": data?.insert_organizations?.returning?.[0]?.id
+              }   
+            }
+          })
+      },
+      onError: (error) => {
+        console.log(error);
+        alert("Something went wrong, try again with proper data");
+      },
+  });
+  const post_Method = () => {
+    insertOrg({
+      variables: {
+        data: {
+          ...data,
+          ...logo
         }
-      })
-      .catch((e) => {
-        alert("Organzation is already registered");
-      });
+      }
+    })
+    // const options = {
+    //   url: "http://localhost:8080/profile/setup",
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     Authorization: localStorage.getItem("token"),
+    //     "Content-Type": "multipart/form-data",
+    //     // "Content-Type": "application/json;charset=UTF-8",
+    //   },
+    //   data: cv,
+    // };
+    // axios(options)
+    //   .then((response) => {
+    //     console.log(" i am running");
+    //     console.log(response.status);
+    //     if (response.status == 200) {
+    //       navigate("/profilesetup/sucess");
+    //     } else if (response.status == 400) {
+    //       alert("Organization is already registered!");
+    //     } else if (response.status == 404) {
+    //       alert("NO USER WITH THIS USERNAME EXIST IN THE SYSTEM");
+    //     } else {
+    //       alert("Something went wrong, try again with proper data");
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     alert("Organzation is already registered");
+    //   });
   };
 
   return (

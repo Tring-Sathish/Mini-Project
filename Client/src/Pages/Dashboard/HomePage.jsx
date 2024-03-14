@@ -13,6 +13,9 @@ import {
   fetchOrganizationDataSuccess,
   fetchOrganizationDataFailure,
 } from "../../Features/Dashboard/Organization_Details_Slice";
+import { getOrganizationById, getUserById } from "../../Pages/hasura-query.ts"
+import { useLazyQuery } from "@apollo/client";
+
 function HomePage() {
   const dispatch = useDispatch();
 
@@ -20,61 +23,48 @@ function HomePage() {
   const [profileSetup, setProfileSetup] = useState(false);
   const [organizationData, setOrganizationData] = useState();
   const [organizationDeatails, setOrganizationDetails] = useState();
-  const CheckAuth = async () => {
-    axios
-      .post(
-        "http://localhost:8080/home",
-        {},
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
-      .then(function (response) {
-        // console.log(response);
-        if (response.data.org_registered == true) {
-          setOrganizationData(response.data);
-          setProfileSetup(true);
-          localStorage.setItem("user_id", response.data._id);
-          localStorage.setItem("organization_id", response.data.org_id);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  
+  const [ getUser ] = useLazyQuery(getUserById, {
+    onCompleted: (data) => {
+      if (data?.users?.[0]?.org_registered == true) {
+        setOrganizationData(data?.users?.[0]);
+        setProfileSetup(true);
+        localStorage.setItem("user_id", data?.users?.[0]?.id);
+        localStorage.setItem("organization_id", data?.users?.[0]?.org_id);
+      }
+    }, 
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  });
+
+  const [ getOrganization ] = useLazyQuery(getOrganizationById, {
+    onCompleted: (data) => {
+        const arr = Object.entries(data?.organizations?.[0]);
+        console.log(44,arr);
+        setOrganizationDetails(arr);
+        dispatch(fetchOrganizationDataSuccess(arr));
+    }, 
+    onError: (e) => {
+      console.log("Error",e);
+      dispatch(fetchOrganizationDataFailure(e.message));
+    }
+  });
 
   const CheckOrganization = async () => {
     dispatch(fetchOrganizationDataStart());
-
-    axios
-      .post("http://localhost:8080/dashboard", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json;charset=UTF-8",
-        },
-
-        data: {
-          organization_id: localStorage.getItem("organization_id"),
-        },
-      })
-      .then(function (response) {
-        // console.log(response);
-        //Translating an ARRAY -> OBJECT
-        const arr = Object.entries(response.data.organizaion);
-        setOrganizationDetails(arr);
-        dispatch(fetchOrganizationDataSuccess(arr));
-
-        // setOrganizationDetails(response.data.organizaion);
-      })
-      .catch(function (error) {
-        dispatch(fetchOrganizationDataFailure(error.message));
-        console.log(error);
-      });
+    getOrganization({
+      variables: {
+        id: localStorage.getItem("organization_id")
+      }
+    })
   };
   useEffect(() => {
-    CheckAuth();
+    getUser({
+      variables: {
+        id: localStorage.getItem("id")
+      }
+    });
     CheckOrganization();
   }, [profileSetup]);
 
@@ -109,7 +99,7 @@ function HomePage() {
                   </h2>
                   {/* // ~~ To show departments */}
                   <div className="flex flex-wrap gap-6 items-center justify-center text-center mt-12">
-                    {organizationDeatails?.[6][1].map((e, index) => {
+                    {organizationDeatails?.[13][1].map((e, index) => {
                       //to get random number value as src
                       let imageNumber = Math.floor(Math.random() * 3);
 

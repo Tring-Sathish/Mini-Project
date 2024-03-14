@@ -13,9 +13,11 @@ import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { object, string, ref } from "yup";
+import { object, string, ref, date } from "yup";
 import MainButton from "../../Components/Common/MainButton";
 import ErrorLogo from "../../assets/icons/error.png";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { signUp } from "../hasura-query.ts"
 
 function Registration() {
   const [error, Seterror] = useState();
@@ -52,37 +54,25 @@ function Registration() {
     confirm_password: "",
   };
 
+  const [signup] = useMutation(signUp, {
+    fetchPolicy: "network-only",
+    onCompleted: (data) => {
+        onOpen();
+    },
+    onError: (error) => {
+      console.log(error);
+      Seterror("An error occurred while saving the user.");
+    }
+  })
   const handleRegitser = async (inputData) => {
-    const options = {
-      url: "http://localhost:8080/register",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: inputData,
-    };
-
-    axios(options)
-      .then((response) => {
-        console.log(response);
-        if (response.status == 200) {
-          console.log(200);
-          onOpen();
-        }
-      })
-      .catch(function (error) {
-        if (error.response.status == 409) {
-          console.log("alredy exsists");
-          Seterror("Username or email already taken");
-        } else if (error.response.status == 400) {
-          Seterror(
-            "Enter Email in format OR Password greater than 8 character"
-          );
-        } else {
-          Seterror("An error occurred while saving the user.");
-        }
-      });
+    signup({variables: {
+      f_name: inputData.f_name,
+      username: inputData.username,
+      email: inputData.email,
+      company_name: inputData.company_name,
+      password: inputData.password,
+      confirm_password: inputData.confirm_password
+    }})
   };
   const formik = useFormik({
     initialValues: values,

@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { object, string } from "yup";
 import MainButton from "../../Components/Common/MainButton";
 import ErrorLogo from "../../assets/icons/error.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { signIn } from "../hasura-query.ts"
+
 function Login() {
   // -> To handle error's
   const [error, SetError] = useState();
@@ -26,44 +29,10 @@ function Login() {
   };
   // -> handle login api call
   const handleLogin = async (inputData) => {
-    const options = {
-      url: "http://localhost:8080/login",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: inputData,
-    };
-
-    axios(options)
-      .then((response) => {
-        console.log("res",response);
-        if (response.status == 200) {
-          //1st store the Token for authorization
-
-          const token = response.data.token;
-          localStorage.setItem("token", token);
-          navigate("/");
-        }
-      })
-      .catch(function (error) {
-        console.log("error",error);
-        //USING ALL EDGE CASES TO SHOW RELEVENT MESSSAGES ON INPUT
-        if (error.response.status == 404) {
-          SetError("No user found");
-        } else if (error.response.status == 403) {
-          SetError(
-            "Email isn't verified, kindly first verify your email address."
-          );
-        } else if (error.response.status == 401) {
-          SetError("Incorrect password.");
-        } else if (error.response.status == 400) {
-          SetError("All fields are required.");
-        } else {
-          SetError("Something went wrong.");
-        }
-      });
+    login({variables: {
+      email: inputData.email,
+      password: inputData.password
+    }})
   };
 
   const formik = useFormik({
@@ -72,6 +41,21 @@ function Login() {
     onSubmit: (e) => {
       handleLogin(e);
     },
+  });
+
+  const [login] = useMutation(signIn, {
+    fetchPolicy: "network-only",
+    onCompleted: (data) => {
+          console.log(data);
+          const token = data?.signIn?.token;
+          localStorage.setItem("token", token);
+          localStorage.setItem("id", data?.signIn?.id);
+          navigate("/");
+      },
+      onError: (error) => {
+        console.log(error);
+        SetError("Something went wrong.");
+      },
   });
 
   return (

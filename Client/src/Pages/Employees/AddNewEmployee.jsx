@@ -3,6 +3,9 @@ import axios from "axios";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import ProfilePic from "../../assets/icons/profileIcon.png";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { insertEmployee } from "../../Pages/hasura-query.ts"
+
 function AddNewEmployee() {
 
   const org_id = localStorage.getItem("organization_id")
@@ -11,32 +14,26 @@ function AddNewEmployee() {
     org_id: org_id,
     name: "",
     email: "",
-    // role: "",
+    role: "",
   });
   
+  const [ addEmployee ] = useMutation(insertEmployee, {
+    onCompleted: (data) => {
+      setData(data);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
   
   const handlesubmit = () => {
-    const options = {
-      url: "http://localhost:8080/addEmployee",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        Authorization: localStorage.getItem("token"),
-        // "Content-Type": "multipart/form-data",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: employee,
-    };
-    axios(options)
-      .then((response) => {
-        // console.log(" i am running");
-        console.log(response.data);
-        setData(response.data)
-        
-      })
-      .catch((e) => {
-        alert("Something Wrong");
-      });
+    addEmployee({
+      variables: {
+        data: {
+          ...employee
+        }
+      }
+    })
   }
 
   return (
@@ -93,13 +90,13 @@ function AddNewEmployee() {
             </label>
             <input
               type="text"
-              placeholder="abc@gmail.com"
+              placeholder="role"
               className="input input-bordered w-full max-w-xs"
-              value={employee.email}
+              value={employee.role}
                 onChange={(e) =>
                   setEmployee((old) => ({
                     ...old,
-                    email: e.target.value,
+                    role: e.target.value,
                   }))
                 }
             />
