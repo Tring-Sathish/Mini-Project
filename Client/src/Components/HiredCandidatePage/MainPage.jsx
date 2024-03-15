@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { getAllJobsById } from "../../Pages/hasura-query.ts"
+import Illustration from "../../assets/illustrations/no_user.svg";
 
 function MainPage() {
   const [createdJobs, setCreatedJobs] = useState();

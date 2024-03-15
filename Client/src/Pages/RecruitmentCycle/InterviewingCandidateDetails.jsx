@@ -29,13 +29,14 @@ function InterviewingCandidateDetails() {
   const [candidateDetails, setCandidateDetails] = useState();
   const [discription, setDiscription] = useState();
   const [emailDetails, setEmailDetails] = useState({
-    to: "asd",
-    subject: "",
+    to: "",
+    subject: "Interview Schedule",
   });
   const [showAlert, setShowAlert] = useState(false);
   const [rating, setRating] = useState();
 
   useEffect(() => {
+    setDiscription(des);
     const fetchAllInterviewingCanidate = () => {
       // axios POST request
       const options = {
@@ -115,7 +116,8 @@ function InterviewingCandidateDetails() {
   };
 
   const RatingPercentage = calculateFeebackPercentage(feedback);
-
+  let des = `<h3>Hi <b>${candidateDetails?.firstName}</b> Greetings Your Interview is scheduled on ${value} at ${time}. <br>Your Meeting Link : <u>"${candidateDetails?.interview_link}"</u>.<br>
+  <center>Thank You!...</center></h3><br><br>Regards,<br>Smart Cruiter`;
   return (
     <div>
       <div
@@ -252,7 +254,7 @@ function InterviewingCandidateDetails() {
                       spring: { damping: 50, stiffness: 100 },
                     }}
                   >
-                    {candidateDetails?.interviewDate}
+                    {candidateDetails?.interviewDate === "nill" ? "--" : candidateDetails?.interviewDate }
                   </motion.p>
                 </div>
 
@@ -266,7 +268,7 @@ function InterviewingCandidateDetails() {
                       spring: { damping: 50, stiffness: 100 },
                     }}
                   >
-                    {candidateDetails?.interviewTime}
+                    {candidateDetails?.interviewTime === "nill" ? "--" : candidateDetails?.interviewTime }
                   </motion.p>
                 </div>
               </div>
@@ -297,7 +299,8 @@ function InterviewingCandidateDetails() {
 
                 <h2 className="heading4 ml-4 mt-8">Generated URL:</h2>
                 <input
-                  className="bg-blue-50 ml-24 p-1 rounded-lg indent-3"
+                  style={{width: "55%"}}
+                  className="bg-blue-50 ml-40 p-1 w-100"
                   type="url"
                   name=""
                   id=""

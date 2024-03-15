@@ -152,7 +152,7 @@ BASIC PROFILE AREA
               </div>
 
               {/* ---- 2nd Education Details Row */}
-              <div className="flex justify-around border-2 border-solid border-gray-3 rounded-md text-center p-1">
+              {userData?.majors[1] && <div className="flex justify-around border-2 border-solid border-gray-3 rounded-md text-center p-1">
                 <div className="w-2/6">
                   <h4>{userData?.majors[1]}</h4>
                 </div>
@@ -164,10 +164,10 @@ BASIC PROFILE AREA
                     {userData?.session[0][0]?.second?.to}
                   </h4>
                 </div>
-              </div>
+              </div>}
 
               {/* ---- 3rd Education Details Row */}
-              <div className="flex justify-around border-2 border-solid border-gray-3 rounded-md text-center p-1">
+              {userData?.majors[2] && <div className="flex justify-around border-2 border-solid border-gray-3 rounded-md text-center p-1">
                 <div className="w-2/6">
                   <h4>{userData?.majors[2]}</h4>
                 </div>
@@ -177,7 +177,7 @@ BASIC PROFILE AREA
                 <div className="border-l-2 border-solid border-gray-300 w-2/6">
                   <h4 className="ml-6">{userData?.session[0][0]?.third?.to}</h4>
                 </div>
-              </div>
+              </div>}
             </div>
           </div>
           {/* EXPERIENCE DEATILS UI CODE */}

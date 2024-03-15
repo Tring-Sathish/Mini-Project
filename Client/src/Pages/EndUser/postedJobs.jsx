@@ -18,7 +18,6 @@ function PostedJobs() {
 
   const navigate = useNavigate();
   const handleMe = (id) => {};
-  // console.log(data);
   return (
     <div className="p-0 w-full sm:p-6 bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900">
       <div className="p-0 sm:p-20  flex justify-between">
@@ -49,7 +48,7 @@ function PostedJobs() {
       </div>
       <div className="bg-gray-50 bg-opacity-5 rounded-md p-4 shadow-md mt-2">
         <h2 className="heading2 mt-4 text-center font-bold text-gray-300">
-          All posted jobs
+        { data?.length != 0 ? "All posted jobs" : "No Jobs Posted" }
         </h2>
 
         <div className="flex gap-8 mt-12 flex-wrap justify-center items-center mb-12">

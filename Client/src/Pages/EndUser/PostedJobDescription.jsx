@@ -26,7 +26,7 @@ function PostedJobDescription() {
   useEffect(() => {
     fetchJobDescription();
   }, [0]);
-  console.log(details);
+
   const navigate = useNavigate();
   const handle = () => {
     const { org_id, _id } = details;
@@ -58,7 +58,7 @@ function PostedJobDescription() {
         <h2 className="heading2b mt-4">Job Description</h2>
         <div className="p-2">
           <h4 className="font-bold">
-            Pay : {details?.salaryRangeFrom} ~~ to ~~ {details?.salaryRangeUpto}
+            Salary : {details?.salaryRangeFrom}  to {details?.salaryRangeUpto}
           </h4>
           <h4 className="font-bold">
             Totall No Of Jobs : {details?.numberOfSeats}

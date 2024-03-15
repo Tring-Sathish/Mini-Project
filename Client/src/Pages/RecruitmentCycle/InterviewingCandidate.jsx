@@ -6,7 +6,7 @@ import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import InterviewingCandidateListCard from "../../Components/RecruitmentStage/InterviewingCandidateListCard";
 
 function InterviewingCandidate() {
-  const params = useParams();
+  const {id} = useParams();
 
   return (
     <>
@@ -17,12 +17,12 @@ function InterviewingCandidate() {
         <div className="w-screen bg-background ">
           <div className="p-0 w-full">
             <TopNavigationBar title={"Interviewing"} className="w-full" />
-            <TopRcruitementCycle id={params} />
+            <TopRcruitementCycle id={id} />
           </div>
           <div className="w-11/12 m-auto mt-12  ">
             <h2 className="heading3">Interviewing Candidates List</h2>
             <div className="mt-6">
-              <InterviewingCandidateListCard id={params} />
+              <InterviewingCandidateListCard id={id} />
             </div>
           </div>
         </div>

@@ -102,9 +102,12 @@ function MainPageOfEmployees() {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Job</th>
-                <th>Favorite Color</th>
-                <th></th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Education</th>
+                <th>Skills</th>
+                <th>Experience</th>
+                <th>Performance</th>
               </tr>
             </thead>
             <tbody>
@@ -120,19 +123,23 @@ function MainPageOfEmployees() {
                     </div>
                     <div>
                       <div className="font-bold">{a.name}</div>
-                      <div className="text-sm opacity-50">{ a.email }</div>
+                      {/* <div className="text-sm opacity-50">{ a.email }</div> */}
                     </div>
                   </div>
                 </td>
+                <td>{a.email}</td>
                 <td>
-                  Zemlak, Daniel and Leannon
-                  <br/>
-                  <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+                  {a?.role}
+                  {/* <br/>
+                  <span className="badge badge-ghost badge-sm">Desktop Support Technician</span> */}
                 </td>
-                <td>Purple</td>
-                <th>
+                <td>{a?.education}</td>
+                <td>{a?.skill}</td>
+                <td>{a?.experience}</td>
+                <td>{a?.performance}</td>
+                {/* <th>
                   <button className="btn btn-ghost btn-xs">details</button>
-                </th>
+                </th> */}
               </tr>))
               }
             </tbody>
