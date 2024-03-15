@@ -27,7 +27,7 @@ function TopNavigationBar({ title }) {
         org_id: localStorage.getItem("organization_id")
       }
     })
-  }, [0]);
+  }, [localStorage.getItem("organization_id")]);
   const navigate = useNavigate();
   return (
     <>
@@ -237,6 +237,7 @@ function TopNavigationBar({ title }) {
                   localStorage.removeItem("token");
                   localStorage.removeItem("organization_id");
                   localStorage.removeItem("user_id");
+                  localStorage.removeItem("id");
                   navigate("/login");
                 }}
               >
@@ -297,6 +298,7 @@ function TopNavigationBar({ title }) {
                   localStorage.removeItem("token");
                   localStorage.removeItem("organization_id");
                   localStorage.removeItem("user_id");
+                  localStorage.removeItem("id");
                   navigate("/login");
                 }}
               >

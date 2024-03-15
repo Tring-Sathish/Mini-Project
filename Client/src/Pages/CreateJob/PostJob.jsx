@@ -46,7 +46,7 @@ function PostJob() {
     numberOfSeats: formData.no_of_seats,
     salaryRangeFrom: formData.salary_range_from,
     salaryRangeUpto: formData.salary_range_upto,
-    job_description: description,
+    job_description: description.replace(/<\/?p>/g, ''),
     city: org_data[0],
     country: org_data[1],
     org_name: org_data[3],
@@ -84,7 +84,7 @@ function PostJob() {
       }
     })
   };
-  console.log(formData);
+
   return (
     <div className="flex bg-white mb-8">
       <div className="hidden sm:block w-2/12 bg-white h-screen">

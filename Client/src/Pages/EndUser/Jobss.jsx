@@ -117,12 +117,15 @@ function Jobss() {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg">
-            <h3 className="font-bold text-lg">Hello!</h3>
+            <h3 className="font-bold text-lg">Welcome!</h3>
             <p className="py-4">
-              To apply for the Job be ready with your resume and picture.
+            Please prepare your resume and a photo to apply for the job.
             </p>
             <div className="modal-action">
-              <button className="btn" onClick={closeModal}>
+            <button className="mt-12 btnfont btn bg-primary border-none hover:bg-black text-center  block" onClick={() => setShowModal(false)}>
+                Close
+              </button>
+              <button className="mt-12 btnfont btn bg-primary border-none hover:bg-black text-center block" onClick={closeModal}>
                 Apply
               </button>
             </div>

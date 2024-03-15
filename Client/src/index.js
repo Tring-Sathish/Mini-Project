@@ -38,30 +38,14 @@ const authMiddleware = setContext(async (_, {headers}) => {
       ...headers,
       ...additionalHeaders,
       // "x-hasura-admin-secret": "Welcome@ta",
-      "x-hasura-user-id":localStorage.getItem("id"),
+      // "x-hasura-user-id":localStorage.getItem("id"),
       subdomain: window.location.host.split(".")[0],
       // Authorization: token ? `Bearer ${token}` : "",
     },
 }})
 
-
-const logOut = onError(({ graphQLErrors }) => {
-  console.log("Graphql Error", graphQLErrors);
-  const getUserParams = window.location.pathname.split("/");
-  // const getPath = localStorage.getItem("adminDashboardUrl") ? localStorage.getItem("adminDashboardUrl") : `/${getUserParams[1]}/login`;
-  if( graphQLErrors && graphQLErrors.length > 0 ){
-    graphQLErrors.forEach((error) => {
-      console.log(41,error);
-      if(error.code ===  "UNAUTHENTICATED"){
-        // window.open(`${window.location.origin}/${getUserParams[1]}/login`, '_self');
-        // localStorage.removeItem('_accesstoken');
-      }
-  })
-}
-})
-
 const client = new ApolloClient({
-  link: from([authMiddleware, logOut, httpLink]),
+  link: from([authMiddleware, httpLink]),
   cache: new InMemoryCache(),
 });
 const root = ReactDOM.createRoot(document.getElementById('root'));
