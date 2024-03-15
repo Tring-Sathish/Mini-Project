@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import NoUser from "../../assets/illustrations/no_user.svg";
 function MainAreaOfHiredCandidateDetails() {
   const [user, setUser] = useState();
+  const [name,setName] = useState();
   const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/")
   const [resumeSrc, setResumeSrc] = useState("http://127.0.0.1:8081/uploads/")
   let { id } = useParams();
@@ -27,7 +28,8 @@ function MainAreaOfHiredCandidateDetails() {
         .then((response) => {
           if (response.status == 200) {
             console.log(response);
-            setUser(response.data);
+            setUser(response.data.getUser);
+            setName(response.data.job.jobPosition);
           }
         })
         .catch((e) => {
@@ -43,7 +45,7 @@ function MainAreaOfHiredCandidateDetails() {
     <div className="p-6">
       <div>
         <h2 className="heading3">
-          Hired Candidate Details {">"} Frontend Develoepr
+          Hired Candidate Details {"> " + name}
         </h2>
       </div>
       <div className="flex  w-full mt-12 flex-wrap gap-8 items-center justify-center">
@@ -106,7 +108,7 @@ function MainAreaOfHiredCandidateDetails() {
                             <h4 className="block line1 font-medium">
                               Interview Date
                             </h4>
-                            <h4 className="inline">{e?.interviewDate}</h4>
+                            <h4 className="inline">{e?.interviewDate === "nill" ? "--" : e?.interviewDate }</h4>
                           </div>
                         </div>
                       </div>

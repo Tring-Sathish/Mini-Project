@@ -207,7 +207,7 @@ function LeftMenuBar() {
                   />
                 </svg>
               </div>
-              <Link to={"/portal/job"}>
+              <Link to={"/portal/org"}>
                 <div className="inline ml-2 mt-1">
                   <button className="inline navMenuFont">View Jobs</button>
                 </div>

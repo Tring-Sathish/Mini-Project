@@ -29,7 +29,16 @@ function MainPage() {
     <div className="p-6">
       <h2 className="heading3 sm:text-justify text-center sm:font-normal font-medium">
         Hired Candidate Details
-      </h2>
+      </h2> 
+      { createdJobs?.length == 0 && <><img
+      src={Illustration}
+      width={350}
+      height={300}
+      className="block m-auto mt-20"
+      ></img>
+      <h2 className="heading2b text-center mt-12">
+        No Hired Candidates
+      </h2></>}
       <div className="flex p-2 mt-12 flex-wrap gap-12 items-center justify-center">
         {createdJobs?.map((element, index) => {
           return (

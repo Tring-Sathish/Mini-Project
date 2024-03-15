@@ -117,34 +117,6 @@ function Profile_Social3() {
         }
       }
     })
-    // const options = {
-    //   url: "http://localhost:8080/profile/setup",
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     Authorization: localStorage.getItem("token"),
-    //     "Content-Type": "multipart/form-data",
-    //     // "Content-Type": "application/json;charset=UTF-8",
-    //   },
-    //   data: cv,
-    // };
-    // axios(options)
-    //   .then((response) => {
-    //     console.log(" i am running");
-    //     console.log(response.status);
-    //     if (response.status == 200) {
-    //       navigate("/profilesetup/sucess");
-    //     } else if (response.status == 400) {
-    //       alert("Organization is already registered!");
-    //     } else if (response.status == 404) {
-    //       alert("NO USER WITH THIS USERNAME EXIST IN THE SYSTEM");
-    //     } else {
-    //       alert("Something went wrong, try again with proper data");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     alert("Organzation is already registered");
-    //   });
   };
 
   return (

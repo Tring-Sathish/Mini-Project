@@ -232,7 +232,7 @@ function RejectedCandidateCard({ id }) {
                         <h4 className="block line1 font-medium">
                           Interview Date
                         </h4>
-                        <h4 className="inline">{e.interviewDate}</h4>
+                        <h4 className="inline">{e?.interviewDate === "nill" ? "--" : e?.interviewDate }</h4>
                       </div>
                     </div>
                   </div>

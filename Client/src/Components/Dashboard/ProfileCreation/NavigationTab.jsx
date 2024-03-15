@@ -42,7 +42,7 @@ function NavigationTab({
         <h2 className="text-center line1">{third_value}</h2>
       </div>
 
-      <div className="">
+      {/* <div className="">
         <h2 className="text-center line1">{fourth_value}</h2>
 
         <div
@@ -51,7 +51,7 @@ function NavigationTab({
         >
           {text == 4 ? 4 : null}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

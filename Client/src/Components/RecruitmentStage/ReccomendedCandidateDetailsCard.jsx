@@ -51,7 +51,7 @@ function ReccomendedCandidateDetailsCard({ id, user, SetUser, setID }) {
     return rating;
   };
   const rating = calculateFeebackPercentage(user?.feedback_form);
-
+  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
   return (
     <div className="flex flex-row">
       {/* ****************************************************
@@ -61,7 +61,7 @@ function ReccomendedCandidateDetailsCard({ id, user, SetUser, setID }) {
         <img
           width={150}
           className="rounded-lg"
-          src={user?.ResumeURL}
+          src={imageSrc + user?.profilePic.split("\\")[1]}
           alt=""
           srcset=""
         />
@@ -83,7 +83,7 @@ function ReccomendedCandidateDetailsCard({ id, user, SetUser, setID }) {
             </label>
             <object
               className="rounded-xl ml-1"
-              data={user?.profilePic}
+              data={imageSrc + user?.ResumeURL.split("\\")[1]}
               type="application/pdf"
               width="100%"
               height="100%"
@@ -136,7 +136,7 @@ function ReccomendedCandidateDetailsCard({ id, user, SetUser, setID }) {
               <FcAssistant className="inline text-2xl relative bottom-1" />{" "}
               Interview Date :{" "}
             </h2>
-            <p className="inline heading4">{user?.interviewDate}</p>
+            <p className="inline heading4">{user?.interviewDate === "nill" ? "--" : user?.interviewDate }</p>
           </div>
 
           <div className="w-1/2">
