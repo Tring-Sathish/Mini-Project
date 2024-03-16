@@ -8,6 +8,7 @@ import SwitchStatus from "./SwitchStatus";
 function WithdrawnDetailsCard({ id }) {
   const [userDetails, setUserDetails] = useState();
   const [description, setDescription] = useState();
+  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
 
   const notify = () =>
     toast.success("Updated", {
@@ -96,7 +97,7 @@ function WithdrawnDetailsCard({ id }) {
             width={200}
             height={200}
             className="rounded-3xl"
-            src={userDetails?.ResumeURL}
+            src={ imageSrc + userDetails?.profilePic.split("\\")[1]}
             alt=""
             srcset=""
           />
@@ -125,7 +126,7 @@ function WithdrawnDetailsCard({ id }) {
                 ✕
               </label>
               <iframe
-                src={userDetails?.profilePic}
+                src={imageSrc + userDetails?.ResumeURL.split("\\")[1]}
                 height="100%"
                 width="100%"
               ></iframe>
@@ -137,7 +138,7 @@ function WithdrawnDetailsCard({ id }) {
       </div>
 
       <div className="w-11/12 m-auto mt-8 mb-8">
-        <h2 className="heading3">Widthdrawn Reason</h2>
+        <h2 className="heading3">Withdrawn Reason</h2>
 
         <ReactQuill
           value={description}

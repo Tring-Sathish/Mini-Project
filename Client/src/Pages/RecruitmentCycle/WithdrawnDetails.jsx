@@ -18,10 +18,10 @@ function WithdrawnDetails() {
         <div className="w-screen bg-background ">
           <div className="p-0 w-full">
             <TopNavigationBar title={"Withdrawn"} className="w-full" />
-            <TopRcruitementCycle />
+            {/* <TopRcruitementCycle /> */}
           </div>
 
-          <div className="w-11/12 m-auto mt-0  ">
+          <div className="w-11/12 m-auto m-12">
             <SwitchStatus id={id} />
             {/* <WithdrawnDetailsCard /> */}
           </div>

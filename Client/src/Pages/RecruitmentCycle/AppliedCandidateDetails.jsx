@@ -21,8 +21,8 @@ function AppliedCandidateDetails() {
         <div className="w-full bg-background ">
           <div className="p-0">
             <TopNavigationBar title={"Applied"} />
-            <TopRcruitementCycle id={id} />
-            <div className="w-11/12 m-auto">
+            {/* <TopRcruitementCycle id={id} /> */}
+            <div className="w-11/12 m-auto m-12">
               <SwitchStatus id={id} />
             </div>
           </div>

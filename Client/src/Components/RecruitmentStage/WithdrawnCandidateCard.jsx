@@ -27,7 +27,6 @@ function WithdrawnCandidateCard({ id }) {
 
       axios(options)
         .then((response) => {
-          console.log(response);
           if (response.status === 200) {
             setCandidate(response.data);
           } else {
@@ -43,7 +42,7 @@ function WithdrawnCandidateCard({ id }) {
   }, [0]);
 
   const navigate = useNavigate();
-
+  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
   return (
     <div>
       {candidate?.length !== 0 ? (
@@ -62,7 +61,7 @@ function WithdrawnCandidateCard({ id }) {
                 <div className="m-auto ">
                   <img
                     width={150}
-                    src={e?.ResumeURL}
+                    src={ imageSrc + e?.profilePic.split("\\")[1]}
                     alt=""
                     className="rounded-full "
                   />

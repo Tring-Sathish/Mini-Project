@@ -12,8 +12,8 @@ function RejectedCandidateCard({ id }) {
   //   const { width, height } = useWindowSize();
 
   const [candidate, setCandidate] = useState();
-  const [description, setDiscription] = useState();
-  const [emailTitle, setEmailTitle] = useState();
+  const [description, setDiscription] = useState(`<h3>Greetings, <br><br>We appreciate your interest in joining our team. After careful consideration, we regret to inform you that we have decided to pursue other candidates for the position. We sincerely thank you for your time and wish you the best in your future endeavors.<br>Thank you!...</h3><br><br>Regards,<br>Smart Recruiter</h3>`);
+  const [emailTitle, setEmailTitle] = useState("Regretful Decision Regarding Your Interview Application");
   const [emailList, setEmailList] = useState([]);
   const [jobInfo, setJobInfo] = useState({
     job_id: "",
@@ -41,6 +41,7 @@ function RejectedCandidateCard({ id }) {
             setCandidate(response.data);
             setJobInfo((e) => ({
               job_id: response.data[0]?.jobID,
+              job_title: response.data[0]?.job
             }));
           } else {
             alert("something went wrong , try again");
@@ -50,11 +51,11 @@ function RejectedCandidateCard({ id }) {
           alert("something went wrong , try again");
         });
     };
-
     getCandidates();
-  }, [0]);
+  }, []);
 
   const navigate = useNavigate();
+  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
 
   const handleEmail = async () => {
     //get all user _ for bulk mail send
@@ -194,7 +195,7 @@ function RejectedCandidateCard({ id }) {
                 <div className="m-auto ">
                   <img
                     width={150}
-                    src={e?.ResumeURL}
+                    src={ imageSrc + e?.profilePic.split("\\")[1]}
                     alt=""
                     className="rounded-full "
                   />

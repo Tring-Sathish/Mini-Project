@@ -5,6 +5,7 @@ import NoUserSVG from "../../assets/illustrations/no_user.svg";
 
 function ReccomendidCandidateCard({ id }) {
   const [candidate, setCandidate] = useState();
+  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
   useEffect(() => {
     const getCandidates = () => {
       const options = {
@@ -49,7 +50,7 @@ function ReccomendidCandidateCard({ id }) {
                 <div className="m-auto ">
                   <img
                     width={150}
-                    src={e.ResumeURL}
+                    src={ imageSrc + e?.profilePic.split("\\")[1]}
                     alt=""
                     className="rounded-full "
                   />

@@ -26,6 +26,7 @@ function InterviewingCandidateDetails() {
 
   const [candidateDetails, setCandidateDetails] = useState();
   const [discription, setDiscription] = useState();
+  const [mail, setMail] = useState(false);
   const [emailDetails, setEmailDetails] = useState({
     to: "",
     subject: "Interview Schedule",
@@ -50,7 +51,6 @@ function InterviewingCandidateDetails() {
       axios(options)
         .then((response) => {
           if (response.status === 200) {
-            console.log(response);
             setCandidateDetails(response.data.candidate_details);
             setRating(response.data.candidate_details.feedback_form);
             const updatedObject = {
@@ -67,7 +67,7 @@ function InterviewingCandidateDetails() {
     };
 
     fetchAllInterviewingCanidate();
-  }, []);
+  }, [mail]);
 
   const handleSavingDateAndTime = () => {
     // axios POST request
@@ -113,8 +113,8 @@ function InterviewingCandidateDetails() {
   };
 
   const RatingPercentage = calculateFeebackPercentage(feedback);
-  let des = `<h3>Hi <b>${candidateDetails?.firstName}</b> Greetings Your Interview is scheduled on ${value} at ${time}. <br>Your Meeting Link : <u>"${candidateDetails?.interview_link}"</u>.<br>
-  <center>Thank You!...</center></h3><br><br>Regards,<br>Smart Cruiter`;
+  let des = `<h3>Hi <b>${candidateDetails?.firstName}</b> Greetings Your Interview is scheduled on ${value} at ${time}. <br>Your Meeting Link : <a href = "${candidateDetails?.interview_link}">"${candidateDetails?.interview_link}"</a>.<br>
+  Thank You!...</h3><br><br>Regards,<br>Smart Cruiter`;
   return (
     <div>
       <div
@@ -150,8 +150,8 @@ function InterviewingCandidateDetails() {
         <div className="w-full bg-background ">
           <div className="p-0">
             <TopNavigationBar title={"Interviewing"} />
-            <TopRcruitementCycle />
-            <div className="w-11/12 m-auto">
+            {/* <TopRcruitementCycle /> */}
+            <div className="w-11/12 m-auto m-12">
               <SwitchStatus id={id} />
             </div>
           </div>
@@ -305,6 +305,7 @@ function InterviewingCandidateDetails() {
                 />
 
                 <label
+                  onClick={()=>setMail(!mail)}
                   htmlFor="my-modal-4"
                   className="btn bg-primary  m-auto mt-8 border-none w-1/2 flex items-center justify-center"
                 >

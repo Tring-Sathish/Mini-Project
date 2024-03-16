@@ -56,7 +56,7 @@ function MainAreaOfHiredCandidateDetails() {
               <div
                 key={index}
                 onClick={() =>
-                  navigate(`/JobDetails/interviewing/details/${e._id}`)
+                  navigate(`/JobDetails/reccomended/details/${e._id}`)
                 }
               >
                 <div className="w-full block m-auto bg-white h-auto p-5  shadow-md rounded-md hover:bg-gray-50 hover:border border-solid border-gray-300  cursor-pointer  ">
