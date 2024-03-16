@@ -1,6 +1,43 @@
 table:
   name: organizations
   schema: public
+object_relationships:
+  - name: OrgToCan
+    using:
+      manual_configuration:
+        column_mapping:
+          id: orgID
+        insertion_order: null
+        remote_table:
+          name: candidates
+          schema: public
+  - name: OrgToEmp
+    using:
+      manual_configuration:
+        column_mapping:
+          id: org_id
+        insertion_order: null
+        remote_table:
+          name: employees
+          schema: public
+  - name: OrgToJob
+    using:
+      manual_configuration:
+        column_mapping:
+          id: org_id
+        insertion_order: null
+        remote_table:
+          name: jobs
+          schema: public
+  - name: OrgToUsr
+    using:
+      manual_configuration:
+        column_mapping:
+          id: org_id
+        insertion_order: null
+        remote_table:
+          name: users
+          schema: public
 insert_permissions:
   - role: user
     permission:

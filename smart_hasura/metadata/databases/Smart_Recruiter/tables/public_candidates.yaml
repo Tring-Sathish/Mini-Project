@@ -1,3 +1,13 @@
 table:
   name: candidates
   schema: public
+object_relationships:
+  - name: candidatesToComments
+    using:
+      manual_configuration:
+        column_mapping:
+          id: CandidateID
+        insertion_order: null
+        remote_table:
+          name: comments
+          schema: public

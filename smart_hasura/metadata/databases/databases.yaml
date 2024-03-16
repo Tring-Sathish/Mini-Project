@@ -7,12 +7,3 @@
       isolation_level: read-committed
       use_prepared_statements: false
   tables: "!include Smart_Recruiter/tables/tables.yaml"
-- name: Smart_Recruiter_Metadata
-  kind: postgres
-  configuration:
-    connection_info:
-      database_url:
-        from_env: HASURA_GRAPHQL_METADATA_DATABASE_URL
-      isolation_level: read-committed
-      use_prepared_statements: false
-  tables: "!include Smart_Recruiter_Metadata/tables/tables.yaml"

@@ -2,7 +2,34 @@ table:
   name: users
   schema: public
 object_relationships:
-  - name: organization
+  - name: UserToCandidates
+    using:
+      manual_configuration:
+        column_mapping:
+          org_id: orgID
+        insertion_order: null
+        remote_table:
+          name: candidates
+          schema: public
+  - name: UserToEmployees
+    using:
+      manual_configuration:
+        column_mapping:
+          org_id: org_id
+        insertion_order: null
+        remote_table:
+          name: employees
+          schema: public
+  - name: UserToJobs
+    using:
+      manual_configuration:
+        column_mapping:
+          org_id: org_id
+        insertion_order: null
+        remote_table:
+          name: jobs
+          schema: public
+  - name: UserToOrganization
     using:
       manual_configuration:
         column_mapping:
