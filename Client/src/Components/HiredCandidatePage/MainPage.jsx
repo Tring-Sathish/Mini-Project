@@ -16,12 +16,14 @@ function MainPage() {
     }
   })
   useEffect(() => {
+    if(localStorage.getItem("organization_id")) {
       getJob({
         variables: {
           orgId: localStorage.getItem("organization_id"),
           filter: {}
         }
       })
+    }
   }, []);
 
   const navigate = useNavigate();

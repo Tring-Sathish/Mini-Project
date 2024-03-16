@@ -16,10 +16,165 @@
               token
             }
           }
+      - name: insertUser
+        query: |
+          mutation insertUser ($data: users_insert_input!) {
+            insert_users_one(object: $data) {
+              email
+              id
+              username
+            }
+          }
+      - name: getUserByEmail
+        query: |
+          query GET_USER_BY_EMAIL ($email: String) {
+            users(where: {email:{_eq:$email}}) {
+              id
+              isVerified
+              org_id
+              org_registered
+              email
+              f_name
+              password
+            }
+          }
       - name: getProfilePic
         query: |
           query getProfilePic ($org_id: uuid!) {
             organizations(where: {id:{_eq:$org_id}}) {
               logo
+            }
+          }
+      - name: insertOrganization
+        query: |
+          mutation insertOrganization ($data: [organizations_insert_input!]!) {
+            insert_organizations(objects: $data) {
+              affected_rows
+              returning {
+                id
+              }
+            }
+          }
+      - name: getUserById
+        query: |
+          query getUserById ($id: uuid!) {
+            users(where: {id:{_eq:$id}}) {
+              username
+              org_registered
+              org_id
+              isVerified
+              id
+              f_name
+              email
+              password
+              passwordResetToken
+            }
+          }
+      - name: updateUser
+        query: |
+          mutation updateUser ($id: uuid!, $data: users_set_input) {
+            update_users(where: {id:{_eq:$id}}, _set: $data) {
+              affected_rows
+            }
+          }
+      - name: getOrganizationById
+        query: |
+          query getOrganizationById ($id: uuid!) {
+            organizations(where: {id:{_eq:$id}}) {
+              username
+              id
+              logo
+              organization_name
+              phoneNo
+              region
+              office_country
+              office_city
+              office_address
+              linkedIn_url
+              insta_url
+              fb_url
+              departments
+              website
+              yt_url
+            }
+          }
+      - name: getAllEmployees
+        query: |
+          query getAllEmployees ($orgId: uuid!) {
+            employees(where: {org_id:{_eq:$orgId}}) {
+              email
+              id
+              name
+              org_id
+            }
+          }
+      - name: insertEmployee
+        query: |
+          mutation insertEmployee ($data: [employees_insert_input!]!) {
+            insert_employees(objects: $data) {
+              returning {
+                email
+                id
+                name
+                org_id
+              }
+              affected_rows
+            }
+          }
+      - name: getAllJobsById
+        query: |
+          query getAllJobsById ($orgId: uuid!) {
+            jobs(where: {org_id:{_eq:$orgId}}) {
+              id
+              applicants_no
+              city
+              country
+              department
+              jobPosition
+              jobType
+              job_description
+              job_status
+              numberOfSeats
+              officeLocation
+              org_id
+              org_name
+              report_city
+              report_educational_level
+              report_experience
+              report_male_vs_female
+              report_status
+              report_university
+              salaryRangeFrom
+              salaryRangeUpto
+            }
+          }
+      - name: insertJobs
+        query: |
+          mutation insertJobs ($data: [jobs_insert_input!]!) {
+            insert_jobs(objects: $data) {
+              returning {
+                id
+                org_id
+                applicants_no
+                city
+                country
+                department
+                jobPosition
+                jobType
+                job_description
+                job_status
+                numberOfSeats
+                officeLocation
+                org_name
+                report_city
+                report_educational_level
+                report_experience
+                report_male_vs_female
+                report_status
+                report_university
+                salaryRangeFrom
+                salaryRangeUpto
+              }
+              affected_rows
             }
           }

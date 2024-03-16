@@ -5,7 +5,7 @@ import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import { useNavigate } from "react-router-dom";
 import Illustration from "../../assets/illustrations/no_user.svg";
 
-function Jobss() {
+function JobOrg() {
   const [data, setData] = useState();
   const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/")
 
@@ -75,4 +75,4 @@ function Jobss() {
   );
 }
 
-export default Jobss;
+export default JobOrg;

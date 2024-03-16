@@ -24,7 +24,6 @@ input RegisterInput {
   username: String!
   password: String!
   email: String!
-  company_name: String!
   confirm_password: String!
   f_name: String!
 }

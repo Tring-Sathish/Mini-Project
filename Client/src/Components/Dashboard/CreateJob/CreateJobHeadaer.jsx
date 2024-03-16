@@ -17,20 +17,24 @@ function CreateJobHeadaer({ setData }) {
   })
 
   const filterShowClosedJobs = () => {
-    getJob({
-      variables: {
-        orgId: localStorage.getItem("organization_id"),
-        filter: {"job_status": { "_eq": "closed"}}
-      }
-    })    
+    if(localStorage.getItem("organization_id")) {
+      getJob({
+        variables: {
+          orgId: localStorage.getItem("organization_id"),
+          filter: {"job_status": { "_eq": "closed"}}
+        }
+      })
+    }  
   };
   const filterShowActiveJobs = () => {
-    getJob({
-      variables: {
-        orgId: localStorage.getItem("organization_id"),
-        filter: {"job_status": { "_eq": "active"}}
-      }
-    })
+    if(localStorage.getItem("organization_id")) {
+      getJob({
+        variables: {
+          orgId: localStorage.getItem("organization_id"),
+          filter: {"job_status": { "_eq": "active"}}
+        }
+      })
+    }
   };
 
   return (

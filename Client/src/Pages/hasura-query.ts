@@ -10,8 +10,8 @@ mutation signIn($email: String!, $password: String!) {
 }`;
 
 export const signUp = gql`
-mutation signUp($username: String!, $password: String!, $email: String!, $company_name: String!, $confirm_password: String!, $f_name: String!) {
-  Register(arg1: {company_name: $company_name, confirm_password: $confirm_password, email: $email, f_name: $f_name, password: $password, username: $username}) {
+mutation signUp($username: String!, $password: String!, $email: String!, $confirm_password: String!, $f_name: String!) {
+  Register(arg1: {confirm_password: $confirm_password, email: $email, f_name: $f_name, password: $password, username: $username}) {
     message
   }
 }`;
@@ -45,7 +45,6 @@ query getUserById($id: uuid!) {
     id
     f_name
     email
-    company_name
     password
     passwordResetToken
   }

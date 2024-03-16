@@ -80,7 +80,6 @@ function Setting_EditProfile() {
   const callUpdateProfile = () => {
     // axios POST request
     const org_id = localStorage.getItem("organization_id");
-    console.log(org_id);
     const formData = new FormData();
 
     // formData.append("userId", org_id); // Replace userId with the actual user ID

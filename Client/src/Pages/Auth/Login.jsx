@@ -46,7 +46,6 @@ function Login() {
   const [login] = useMutation(signIn, {
     fetchPolicy: "network-only",
     onCompleted: (data) => {
-          console.log(data);
           const token = data?.signIn?.token;
           localStorage.setItem("token", token);
           localStorage.setItem("id", data?.signIn?.id);

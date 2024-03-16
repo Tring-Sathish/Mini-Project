@@ -17,20 +17,20 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         const findUser = userResp.users[0]
         if (!findUser) {
             return res.status(404).json({
-                error: "No such user found",
+                message: "No such user found",
             });
         }
         const checkStatus = findUser.isVerified;
         if (checkStatus == false) {
             return res.status(403).json({
-                error: "Email isn't verified, kindly first verify your email address",
+                message: "Email isn't verified, kindly first verify your email address",
             });
         }
 
         const unhashed = await bcrypt.compare(password, findUser.password);
         if (!unhashed) {
             return res.status(401).json({
-                error: "Incorrect password",
+                message: "Incorrect password",
             });
         }
         const HASURA_GRAPHQL_JWT_SECRET = {

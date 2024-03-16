@@ -27,7 +27,6 @@ function HomePage() {
       if (data?.users?.[0]?.org_registered === true) {
         setOrganizationData(data?.users?.[0]);
         setProfileSetup(true);
-        localStorage.setItem("user_id", data?.users?.[0]?.id);
         localStorage.setItem("organization_id", data?.users?.[0]?.org_id);
       }
     }, 
@@ -39,7 +38,6 @@ function HomePage() {
   const [ getOrganization ] = useLazyQuery(getOrganizationById, {
     onCompleted: (data) => {
         const arr = Object.entries(data?.organizations?.[0]);
-        console.log(44,arr);
         setOrganizationDetails(arr);
         dispatch(fetchOrganizationDataSuccess(arr));
     }, 
@@ -55,12 +53,14 @@ function HomePage() {
         id: localStorage.getItem("id")
       }
     });
-    dispatch(fetchOrganizationDataStart());
-    getOrganization({
-      variables: {
-        id: localStorage.getItem("organization_id")
-      }
-    })
+    if (localStorage.getItem("organization_id")) {
+      dispatch(fetchOrganizationDataStart());
+      getOrganization({
+        variables: {
+          id: localStorage.getItem("organization_id")
+        }
+      })
+    }
     // eslint-disable-next-line
   }, [profileSetup]);
 

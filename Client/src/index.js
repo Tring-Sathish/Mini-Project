@@ -24,23 +24,17 @@ export const getToken = async () => {
 };
 
 // add the authorization to the headers
-const authMiddleware = setContext(async (_, {headers}) => {
+const authMiddleware = setContext(async (_, {headers}, options) => {
   const token = await getToken();
   const additionalHeaders = {};
-  if (!token) {
-    additionalHeaders['x-hasura-admin-secret'] = 'Welcome@ta';
-  }
-  else {
+  if (token) {
     additionalHeaders['Authorization'] = `Bearer ${token}`;
   }
   return {
     headers: {
       ...headers,
       ...additionalHeaders,
-      // "x-hasura-admin-secret": "Welcome@ta",
-      // "x-hasura-user-id":localStorage.getItem("id"),
       subdomain: window.location.host.split(".")[0],
-      // Authorization: token ? `Bearer ${token}` : "",
     },
 }})
 

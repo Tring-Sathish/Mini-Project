@@ -9,6 +9,8 @@ actions:
         query_params: {}
         template_engine: Kriti
         version: 2
+    permissions:
+      - role: anonymous
   - name: signIn
     definition:
       kind: synchronous

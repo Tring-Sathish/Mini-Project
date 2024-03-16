@@ -20,12 +20,14 @@ function CreateJob() {
     }
   })
   useEffect(() => {
+    if(localStorage.getItem("organization_id")) {
       getJob({
         variables: {
           orgId: localStorage.getItem("organization_id"),
           filter: {}
         }
       })
+    }
   }, [0]);
 
   return (

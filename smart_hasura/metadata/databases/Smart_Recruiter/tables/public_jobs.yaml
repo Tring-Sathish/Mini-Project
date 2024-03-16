@@ -20,3 +20,102 @@ object_relationships:
         remote_table:
           name: organizations
           schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        jobToOrg:
+          OrgToUsr:
+            id:
+              _eq: X-Hasura-User-Id
+      columns:
+        - applicants_no
+        - numberOfSeats
+        - salaryRangeFrom
+        - salaryRangeUpto
+        - report_experience
+        - report_male_vs_female
+        - report_status
+        - city
+        - country
+        - department
+        - job_description
+        - job_status
+        - jobPosition
+        - jobType
+        - officeLocation
+        - org_name
+        - report_city
+        - report_educational_level
+        - report_university
+        - id
+        - org_id
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - applicants_no
+        - numberOfSeats
+        - salaryRangeFrom
+        - salaryRangeUpto
+        - report_experience
+        - report_male_vs_female
+        - report_status
+        - city
+        - country
+        - department
+        - job_description
+        - job_status
+        - jobPosition
+        - jobType
+        - officeLocation
+        - org_name
+        - report_city
+        - report_educational_level
+        - report_university
+        - id
+        - org_id
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - applicants_no
+        - numberOfSeats
+        - salaryRangeFrom
+        - salaryRangeUpto
+        - report_experience
+        - report_male_vs_female
+        - report_status
+        - city
+        - country
+        - department
+        - job_description
+        - job_status
+        - jobPosition
+        - jobType
+        - officeLocation
+        - org_name
+        - report_city
+        - report_educational_level
+        - report_university
+        - id
+        - org_id
+      filter:
+        jobToOrg:
+          OrgToUsr:
+            id:
+              _eq: X-Hasura-User-Id
+      check: {}
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        jobToOrg:
+          OrgToUsr:
+            id:
+              _eq: X-Hasura-User-Id
+    comment: ""

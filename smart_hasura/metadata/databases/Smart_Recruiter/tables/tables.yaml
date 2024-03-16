@@ -1,3 +1,4 @@
+- "!include public_RecruitmentStatusEnum.yaml"
 - "!include public_candidates.yaml"
 - "!include public_comments.yaml"
 - "!include public_employees.yaml"

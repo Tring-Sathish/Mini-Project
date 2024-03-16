@@ -21,11 +21,13 @@ function TopNavigationBar({ title }) {
   })
 
   useEffect(() => {
-    getPic({
-      variables : {
-        org_id: localStorage.getItem("organization_id")
-      }
-    })
+    if(localStorage.getItem("organization_id")) {
+      getPic({
+        variables : {
+          org_id: localStorage.getItem("organization_id")
+        }
+      })
+    }
   }, [localStorage.getItem("organization_id")]);
   const navigate = useNavigate();
   return (

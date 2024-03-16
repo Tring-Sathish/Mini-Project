@@ -41,7 +41,10 @@ object_relationships:
 insert_permissions:
   - role: user
     permission:
-      check: {}
+      check:
+        OrgToUsr:
+          id:
+            _eq: X-Hasura-User-Id
       columns:
         - departments
         - fb_url
@@ -98,6 +101,18 @@ update_permissions:
         - username
         - website
         - yt_url
-      filter: {}
-      check: {}
+        - id
+      filter:
+        OrgToUsr:
+          id:
+            _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        OrgToUsr:
+          id:
+            _eq: X-Hasura-User-Id
     comment: ""

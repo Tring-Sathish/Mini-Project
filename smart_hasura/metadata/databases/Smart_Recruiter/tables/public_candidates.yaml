@@ -2,6 +2,18 @@ table:
   name: candidates
   schema: public
 object_relationships:
+  - name: RecruitmentStatusEnum
+    using:
+      foreign_key_constraint_on: recruitmentCycle
+  - name: canToUsr
+    using:
+      manual_configuration:
+        column_mapping:
+          orgID: org_id
+        insertion_order: null
+        remote_table:
+          name: users
+          schema: public
   - name: candidatesToComments
     using:
       manual_configuration:
@@ -11,3 +23,126 @@ object_relationships:
         remote_table:
           name: comments
           schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        canToUsr:
+          id:
+            _eq: X-Hasura-User-Id
+      columns:
+        - companyName
+        - duration
+        - emailAddress
+        - feedback_form
+        - institute
+        - level
+        - majors
+        - session
+        - title
+        - rating
+        - address
+        - city
+        - dob
+        - firstName
+        - gender
+        - gitHubProfile
+        - interview_link
+        - interviewDate
+        - interviewTime
+        - lastName
+        - linkedinProfile
+        - phoneNo
+        - profilePic
+        - recruitmentCycle
+        - ResumeURL
+        - withdrawn_reason
+        - zipCode
+        - id
+        - jobID
+        - orgID
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - companyName
+        - duration
+        - emailAddress
+        - feedback_form
+        - institute
+        - level
+        - majors
+        - session
+        - title
+        - rating
+        - address
+        - city
+        - dob
+        - firstName
+        - gender
+        - gitHubProfile
+        - interview_link
+        - interviewDate
+        - interviewTime
+        - lastName
+        - linkedinProfile
+        - phoneNo
+        - profilePic
+        - recruitmentCycle
+        - ResumeURL
+        - withdrawn_reason
+        - zipCode
+        - id
+        - jobID
+        - orgID
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - companyName
+        - duration
+        - emailAddress
+        - feedback_form
+        - institute
+        - level
+        - majors
+        - session
+        - title
+        - rating
+        - address
+        - city
+        - dob
+        - firstName
+        - gender
+        - gitHubProfile
+        - interview_link
+        - interviewDate
+        - interviewTime
+        - lastName
+        - linkedinProfile
+        - phoneNo
+        - profilePic
+        - recruitmentCycle
+        - ResumeURL
+        - withdrawn_reason
+        - zipCode
+        - id
+        - jobID
+        - orgID
+      filter:
+        canToUsr:
+          id:
+            _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        canToUsr:
+          id:
+            _eq: X-Hasura-User-Id
+    comment: ""

@@ -1,0 +1,39 @@
+table:
+  name: RecruitmentStatusEnum
+  schema: public
+is_enum: true
+array_relationships:
+  - name: candidates
+    using:
+      foreign_key_constraint_on:
+        column: recruitmentCycle
+        table:
+          name: candidates
+          schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - status
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - status
+      filter: {}
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - status
+      filter: {}
+      check: {}
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter: {}
+    comment: ""

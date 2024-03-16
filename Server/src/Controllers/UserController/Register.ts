@@ -130,10 +130,10 @@ const sendVerifyEmail = async (name: string, email: string, id: string) => {
 const register = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-    const { f_name, username, email, company_name, password } =
+    const { f_name, username, email, password } =
       req.body.input.arg1;
 
-    if (!f_name || !username || !email || !company_name || !password) {
+    if (!f_name || !username || !email || !password) {
       return res.status(400).json({ error: "All fields are required." });
     }
 
@@ -164,7 +164,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const data = {
-        f_name, username, email, company_name, password: hashedPassword
+        f_name, username, email, password: hashedPassword
     }
     const resp = await QueryHasura(INSERT_USER,{ data })    
     const userId = resp.insert_users_one.id;

@@ -12,11 +12,13 @@ function MainPageOfEmployees() {
   const [employee,setEmployee] = useState();
   useEffect(() => {
     // axios POST request
+    if(localStorage.getItem("organization_id")) {
     getEmployee({
       variables: {
         orgId: localStorage.getItem("organization_id")
       }
     })
+  }
   }, []);
 
   const [profileURL, setProfileURL] = useState();
