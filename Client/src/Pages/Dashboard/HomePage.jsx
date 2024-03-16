@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
@@ -6,7 +5,6 @@ import ProfileSetup from "../../Components/ProfileSetup/ProfileSetup";
 import DepartmentPhoto from "../../assets/illustrations/dep_1.jpg";
 import DepartmentPhoto2 from "../../assets/illustrations/dep_2.jpg";
 import DepartmentPhoto3 from "../../assets/illustrations/dep_3.jpg";
-import { HiOfficeBuilding } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import {
   fetchOrganizationDataStart,
@@ -26,7 +24,7 @@ function HomePage() {
   
   const [ getUser ] = useLazyQuery(getUserById, {
     onCompleted: (data) => {
-      if (data?.users?.[0]?.org_registered == true) {
+      if (data?.users?.[0]?.org_registered === true) {
         setOrganizationData(data?.users?.[0]);
         setProfileSetup(true);
         localStorage.setItem("user_id", data?.users?.[0]?.id);
@@ -51,21 +49,19 @@ function HomePage() {
     }
   });
 
-  const CheckOrganization = async () => {
-    dispatch(fetchOrganizationDataStart());
-    getOrganization({
-      variables: {
-        id: localStorage.getItem("organization_id")
-      }
-    })
-  };
   useEffect(() => {
     getUser({
       variables: {
         id: localStorage.getItem("id")
       }
     });
-    CheckOrganization();
+    dispatch(fetchOrganizationDataStart());
+    getOrganization({
+      variables: {
+        id: localStorage.getItem("organization_id")
+      }
+    })
+    // eslint-disable-next-line
   }, [profileSetup]);
 
   const depImages = [DepartmentPhoto, DepartmentPhoto2, DepartmentPhoto3];
@@ -79,7 +75,7 @@ function HomePage() {
         <div className="p-0">
           <TopNavigationBar title={"Home"} />
           {/* ## USING CONDITIONAL RENDERING HERE TO DIFFRENTIATE 1ST TIME USER AND WELL SETUP USER */}
-          {profileSetup == false ? (
+          {profileSetup === false ? (
             // ~~ WHEN USER LOGIN 1ST TIME ~~
             <>
               <h1 className="heading1 ml-12  mt-20 text-transparent text-3xl sm:text-6xl bg-clip-text bg-gradient-to-r from-blue-500 to-black">

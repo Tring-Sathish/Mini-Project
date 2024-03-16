@@ -37,12 +37,12 @@ function VerifyOPT() {
 
     axios(options)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           navigate("/newpassword" + "?id=" + response.data.id);
         }
       })
       .catch(function (error) {
-        if (error.response.status == 404) {
+        if (error.response.status === 404) {
           SetError("Invalid code try again");
         } else {
           SetError("Error processing, something went wrong try again");
@@ -126,7 +126,7 @@ function VerifyOPT() {
                     </div>
                   </div>
                   {/* -> ERROR MESSAGE UI CODE */}
-                  {error == null ? null : (
+                  {error === null ? null : (
                     <div className="text-white text-center font-semibold bg-red-600 p-2 w-9/12 m-auto rounded">
                       {error}
                     </div>

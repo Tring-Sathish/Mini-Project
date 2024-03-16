@@ -42,7 +42,7 @@ function ReccomendedCandidateDetailsCard({ id, user, SetUser, setID }) {
   const calculateFeebackPercentage = (feedback) => {
     let rating = 0;
     for (let i = 0; i < feedback?.length; i++) {
-      if (feedback[i] == 0) {
+      if (feedback[i] === 0) {
         rating += 0;
       } else {
         rating += feedback[i] * 4;

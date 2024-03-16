@@ -12,7 +12,6 @@ const VerifyMail = async (req: Request, res: Response, next: NextFunction): Prom
     }
 
     try {
-        // await client.query('UPDATE users SET "isVerified" = $2 WHERE id = $1', [id, true]);
         const data = {
                 "isVerified": true
         }

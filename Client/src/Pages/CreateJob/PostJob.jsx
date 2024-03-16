@@ -96,7 +96,7 @@ function PostJob() {
         </div>
 
         {/* component */}
-        {apiFetched == false ? undefined : (
+        {apiFetched === false ? undefined : (
           <div>
             <Confetti style={{ width: "90%" }} height={220} />
 

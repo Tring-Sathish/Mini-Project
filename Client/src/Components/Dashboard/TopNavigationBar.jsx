@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import ProfileIcon from "../../assets/icons/profileIcon.png";
@@ -39,7 +38,7 @@ function TopNavigationBar({ title }) {
             className="text-3xl mt-2 relative left-2"
           />
         </div>
-        {showMenu == true ? (
+        {showMenu === true ? (
           <div className=" p-8 absolute  bg-white rounded-md shadow-lg  -ml-10 mt-8 z-50 opacity-100 transition-opacity duration-500 ease-in-out">
             <div className="flex flex-col z-40">
               <div className="flex flex-col justify-center items-center mt-0 bg-blue-200">

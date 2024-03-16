@@ -47,7 +47,6 @@ function ProfileAddTeam() {
     detailed_data: data,
     team_details: team_details,
   };
-  const [type, setType] = useState();
   const post_Method = () => {
 
     const options = {
@@ -65,11 +64,11 @@ function ProfileAddTeam() {
       .then((response) => {
         console.log(" i am running");
         console.log(response.status);
-        if (response.status == 200) {
+        if (response.status === 200) {
           navigate("/profilesetup/sucess");
-        } else if (response.status == 400) {
+        } else if (response.status === 400) {
           alert("Organization is already registered!");
-        } else if (response.status == 404) {
+        } else if (response.status === 404) {
           alert("NO USER WITH THIS USERNAME EXIST IN THE SYSTEM");
         } else {
           alert("Something went wrong, try again with proper data");

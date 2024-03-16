@@ -37,7 +37,7 @@ function RejectedCandidateCard({ id }) {
 
       axios(options)
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             setCandidate(response.data);
             setJobInfo((e) => ({
               job_id: response.data[0]?.jobID,
@@ -78,7 +78,7 @@ function RejectedCandidateCard({ id }) {
       };
 
       axios(options).then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           setSuccessMsg(true);
           setShowSpinner(false);
         } else {
@@ -117,7 +117,7 @@ function RejectedCandidateCard({ id }) {
           >
             ✕
           </label>
-          {successMsg == false ? (
+          {successMsg === false ? (
             <div>
               <h3 className="font-bold text-xl text-gray-800 text-center">
                 Decline Email
@@ -161,7 +161,7 @@ function RejectedCandidateCard({ id }) {
               >
                 Send
               </button>
-              {showSpinner == true ? (
+              {showSpinner === true ? (
                 <BeatLoader className=" text-center mt-6" color="#0063B2" />
               ) : undefined}
             </div>

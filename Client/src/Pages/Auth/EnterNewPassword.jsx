@@ -49,7 +49,7 @@ function EnterNewPassword() {
 
     axios(options)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           console.log(200);
           SetSuccess(true);
           SetError(false);
@@ -59,7 +59,7 @@ function EnterNewPassword() {
         }
       })
       .catch(function (error) {
-        if (error.response.status == 400) {
+        if (error.response.status === 400) {
           SetError("Must fill new-password field.");
         } else {
           SetError("⚠️  Error processing password reset request try again");
@@ -76,7 +76,7 @@ function EnterNewPassword() {
   return (
     <div>
       {/* Sucess alert code */}
-      {success == true ? (
+      {success === true ? (
         <div>
           <Alert status="success" variant="solid">
             <AlertIcon />
@@ -146,7 +146,7 @@ function EnterNewPassword() {
 
                   {/*  -> STARTING  ERROR HANDLING UI CODE */}
 
-                  {error == null ? null : (
+                  {error === null ? null : (
                     <div className="text-white font-semibold bg-red-600 p-2 w-9/12 m-auto rounded">
                       {error}
                     </div>

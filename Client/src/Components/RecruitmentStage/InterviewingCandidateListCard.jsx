@@ -22,7 +22,7 @@ function InterviewingCandidateListCard({ id }) {
 
       axios(options)
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             setUser(response.data);
           }
         })

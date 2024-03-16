@@ -28,7 +28,7 @@ function WithdrawnCandidateCard({ id }) {
       axios(options)
         .then((response) => {
           console.log(response);
-          if (response.status == 200) {
+          if (response.status === 200) {
             setCandidate(response.data);
           } else {
             alert("something went wrong , try again");

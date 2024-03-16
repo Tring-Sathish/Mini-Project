@@ -1,15 +1,13 @@
 import axios from "axios";
-import { React, useState, CSSProperties } from "react";
+import { React, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ClipLoader from "react-spinners/ClipLoader";
 
 import {
   FcBusinessman,
   FcGraduationCap,
   FcAssistant,
   FcAdvertising,
-  FcPlus,
   FcCamera,
   FcDocument,
 } from "react-icons/fc";
@@ -28,7 +26,6 @@ function PostedJobApplyForm() {
   const [hideForm, setHideForm] = useState("");
   // __ FORM HANDLING STATES __
   const [educationDetailsPart2, setEducationaDetailsPart2] = useState(false);
-  const [educationDetailsPart3, setEducationaDetailsPart3] = useState(false);
   const [experienceDetails, setExperienceDetails] = useState(false);
   const [value, setValue] = useState(1);
 
@@ -130,11 +127,11 @@ function PostedJobApplyForm() {
 
     axios(options)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           setLoading(!loading);
           setHideForm("none");
           setShowModal(true);
-        } else if (response.status == 206) {
+        } else if (response.status === 206) {
           setLoading(!loading);
 
           alert("Enter valid information in Form");
@@ -173,7 +170,7 @@ function PostedJobApplyForm() {
       </div>
       {/* ~~~ ON SUCESS JOB APPLY MODAL UI CODE */}
 
-      {showModal == true ? (
+      {showModal === true ? (
         <div className="z-10 bg-white justify-center w-1/3 left-1/3 4 mt-12 p-6 modalShadow m-auto absolute">
           <h1 className="heading2b text-blue-500 text-center">Congrats!</h1>
           <img
@@ -932,7 +929,7 @@ function PostedJobApplyForm() {
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* CODE FOR 2ND EDUCATION DETAILS UI CODE */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {educationDetailsPart2 == true && value >= 2 ? (
+          {educationDetailsPart2 === true && value >= 2 ? (
             <div className="flex mb-6">
               <div className="w-1/4">
                 <label className="label line1">Institute</label>
@@ -1528,7 +1525,7 @@ function PostedJobApplyForm() {
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
           {/* CODE FOR 3RD EDUCATION DETAILS UI CODE */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
-          {educationDetailsPart2 == true && value == 3 ? (
+          {educationDetailsPart2 === true && value === 3 ? (
             <div className="flex mb-6">
               <div className="w-1/4">
                 <label className="label line1">Institute</label>
@@ -2211,7 +2208,7 @@ function PostedJobApplyForm() {
           {/* PROFESSIONAL EXPERIENCE 2ND   UI CODE */}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
 
-          {experienceDetails == true ? (
+          {experienceDetails === true ? (
             <div className="flex mt-4">
               <div className="w-5/12">
                 <label className="label line1">Title</label>

@@ -33,7 +33,7 @@ function CandidateNotes({ id }) {
     };
 
     axios(options).then((response) => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         notify();
         //   setAddComment(false);
         //   setCommentID(response.data._id);
@@ -54,7 +54,7 @@ function CandidateNotes({ id }) {
     };
 
     axios(options).then((response) => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         setAddComment(false);
         setCommentID(response.data._id);
         notify();
@@ -78,7 +78,7 @@ function CandidateNotes({ id }) {
       };
 
       axios(options).then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           setAddComment(false);
           setComment(() => ({
             Applied: response.data.Applied,
@@ -119,7 +119,7 @@ function CandidateNotes({ id }) {
         </div>
         <h5 className="line2">Notes</h5>
         {/* //NOTES UI CODE */}
-        {showComment == true ? (
+        {showComment === true ? (
           <div className="w-96 h-auto bg-white rounded-lg modalShadow absolute top-72 p-4">
             <ToastContainer
               position="top-center"
@@ -241,7 +241,7 @@ function CandidateNotes({ id }) {
               />
             </div>
 
-            {addComment == true ? (
+            {addComment === true ? (
               <button
                 onClick={postComments}
                 className="bg-secondry p-2 line1 mt-6 block m-auto text-white rounded-md

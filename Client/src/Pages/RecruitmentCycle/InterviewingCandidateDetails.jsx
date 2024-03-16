@@ -7,7 +7,7 @@ import SwitchStatus from "../../Components/RecruitmentStage/SwitchStatus";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -17,8 +17,6 @@ import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
 import JSAlert from "js-alert";
-import { FiArrowLeft } from "react-icons/fi";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import GoBackButton from "../../Components/Common/GoBackButton";
 
 function InterviewingCandidateDetails() {
@@ -51,7 +49,7 @@ function InterviewingCandidateDetails() {
 
       axios(options)
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             console.log(response);
             setCandidateDetails(response.data.candidate_details);
             setRating(response.data.candidate_details.feedback_form);
@@ -69,7 +67,7 @@ function InterviewingCandidateDetails() {
     };
 
     fetchAllInterviewingCanidate();
-  }, [0]);
+  }, []);
 
   const handleSavingDateAndTime = () => {
     // axios POST request
@@ -86,7 +84,7 @@ function InterviewingCandidateDetails() {
 
     axios(options)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           JSAlert.alert("Added").dismissIn(1000 * 1);
         } else {
           alert("Something went wrong , refresh page and try again");
@@ -97,7 +95,6 @@ function InterviewingCandidateDetails() {
       });
   };
 
-  const navigate = useNavigate();
   // || *************************************** ||
   //  Code to make Rating % value based on the formula of 20% each cateogry
   // || *************************************** ||
@@ -106,7 +103,7 @@ function InterviewingCandidateDetails() {
   const calculateFeebackPercentage = (feedback) => {
     let rating = 0;
     for (let i = 0; i < feedback?.length; i++) {
-      if (feedback[i] == 0) {
+      if (feedback[i] === 0) {
         rating += 0;
       } else {
         rating += feedback[i] * 4;
@@ -122,7 +119,7 @@ function InterviewingCandidateDetails() {
     <div>
       <div
         style={{
-          display: showAlert == false ? "none" : "block",
+          display: showAlert === false ? "none" : "block",
         }}
         className="alert alert-success shadow-lg w-1/2 absolute left-1/4"
       >
@@ -395,7 +392,7 @@ function InterviewingCandidateDetails() {
 
                           axios(options)
                             .then((response) => {
-                              if (response.status == 200) {
+                              if (response.status === 200) {
                                 setCandidateDetails(
                                   response.data.candidate_details
                                 );
@@ -406,7 +403,7 @@ function InterviewingCandidateDetails() {
                                 setTimeout(() => {
                                   setShowAlert(false);
                                 }, 2000);
-                              } else if (response.status == 206) {
+                              } else if (response.status === 206) {
                                 alert("Enter all fields");
                               }
                             })

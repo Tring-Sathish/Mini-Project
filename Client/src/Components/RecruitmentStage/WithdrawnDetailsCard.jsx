@@ -35,7 +35,7 @@ function WithdrawnDetailsCard({ id }) {
 
     axios(options)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           setUserDetails(response.data);
           setDescription(response.data.withdrawn_reason);
         } else {
@@ -61,7 +61,7 @@ function WithdrawnDetailsCard({ id }) {
 
     axios(options)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           notify();
           console.log(response);
         } else {

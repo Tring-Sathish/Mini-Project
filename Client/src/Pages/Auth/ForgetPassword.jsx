@@ -31,18 +31,18 @@ function ForgetPassword() {
 
     axios(options)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           console.log(200);
 
           navigate("/verifyotp?email=" + inputData.email);
         }
       })
       .catch(function (error) {
-        if (error.response.status == 400) {
+        if (error.response.status === 400) {
           Seterror("Email address is required");
-        } else if (error.response.status == 404) {
+        } else if (error.response.status === 404) {
           Seterror("Email address not found");
-        } else if (error.response.status == 401) {
+        } else if (error.response.status === 401) {
           Seterror("Email address is not activated");
         } else {
           Seterror("Error processing password reset request");

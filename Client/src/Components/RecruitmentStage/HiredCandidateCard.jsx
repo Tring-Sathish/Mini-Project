@@ -1,7 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { BsFillInfoCircleFill } from "react-icons/bs";
-import { motion } from "framer-motion";
 import { FiSend } from "react-icons/fi";
 import ReactQuill from "react-quill";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +12,6 @@ function HiredCandidates({ id }) {
   const [candidate, setCandidate] = useState();
   const [description, setDiscription] = useState();
   const [emailTitle, setEmailTitle] = useState("Congrats you are Hired");
-  const [emailList, setEmailList] = useState([]);
   const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
   const [jobInfo, setJobInfo] = useState({
     job_id: "",
@@ -39,7 +36,7 @@ function HiredCandidates({ id }) {
 
       axios(options)
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             setCandidate(response.data.getUser);
             setJobInfo((e) => ({
               job_id: response.data?.job?._id,
@@ -82,7 +79,7 @@ function HiredCandidates({ id }) {
       };
 
       axios(options).then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           setSuccessMsg(true);
           setShowSpinner(false);
         } else {
@@ -165,7 +162,7 @@ function HiredCandidates({ id }) {
               >
                 Send
               </button>
-              {showSpinner == true ? (
+              {showSpinner === true ? (
                 <BeatLoader className=" text-center mt-6" color="#0063B2" />
               ) : undefined}
             </div>

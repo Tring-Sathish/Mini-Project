@@ -8,7 +8,6 @@ function MainAreaOfHiredCandidateDetails() {
   const [user, setUser] = useState();
   const [name,setName] = useState();
   const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/")
-  const [resumeSrc, setResumeSrc] = useState("http://127.0.0.1:8081/uploads/")
   let { id } = useParams();
 
   useEffect(() => {
@@ -26,7 +25,7 @@ function MainAreaOfHiredCandidateDetails() {
 
       axios(options)
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             console.log(response);
             setUser(response.data.getUser);
             setName(response.data.job.jobPosition);
@@ -66,7 +65,7 @@ function MainAreaOfHiredCandidateDetails() {
                       <img
                         width={150}
                         src={imageSrc + img }
-                        alt=""
+                        alt="img"
                         className="rounded-full "
                       />
                     </div>

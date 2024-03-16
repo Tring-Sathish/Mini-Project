@@ -291,7 +291,7 @@ function Registration() {
 
             </div>
             {/* Error message part */}
-            {error == null ? null : (
+            {error === null ? null : (
               <div className="border-2 solid border-blue-700 bg-blue-700 text-white rounded-lg p-2 w-4/5  mt-1 ml-12  m-auto block ">
                 <img
                   src={ErrorLogo}

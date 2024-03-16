@@ -39,12 +39,12 @@ function SwitchStatus({ id }) {
 
     axios(options)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           notify();
           setTimeout(() => {
             navigate(-1);
           }, 1000);
-        } else if (response.status == 300) {
+        } else if (response.status === 300) {
           alert("Select any value of interview stage");
         } else {
           alert("something went wrong , refresh page and try again");

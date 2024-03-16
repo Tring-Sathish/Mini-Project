@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Rating, RoundedStar } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { useEffect } from "react";
-import { Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
 function FeedbackForm({ id, rating }) {
   const [startRating, setStartRating] = useState({
     first: 0,
@@ -43,7 +42,7 @@ function FeedbackForm({ id, rating }) {
     };
 
     fetchAllInterviewingCanidate();
-  }, [0]);
+  }, []);
 
   const handleFeebackForm = () => {
     // axios POST request
@@ -62,7 +61,7 @@ function FeedbackForm({ id, rating }) {
 
     axios(options)
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           alert("Submited");
         } else {
           alert("something went wrong , refresh and try again");
@@ -73,9 +72,9 @@ function FeedbackForm({ id, rating }) {
       });
   };
 
-  const Star = (
-    <path d="M62 25.154H39.082L32 3l-7.082 22.154H2l18.541 13.693L13.459 61L32 47.309L50.541 61l-7.082-22.152L62 25.154z" />
-  );
+  // const Star = (
+  //   <path d="M62 25.154H39.082L32 3l-7.082 22.154H2l18.541 13.693L13.459 61L32 47.309L50.541 61l-7.082-22.152L62 25.154z" />
+  // );
   const myStyles = {
     itemShapes: RoundedStar,
     boxBorderWidth: 1,

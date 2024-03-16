@@ -11,10 +11,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer,
   PieChart,
   Pie,
-  Sector,
   Cell,
 } from "recharts";
 
@@ -88,7 +86,7 @@ function MainPage() {
       axios(options)
         .then((response) => {
           console.log(response);
-          if (response.status == 200) {
+          if (response.status === 200) {
             setReport(response.data);
           } else {
             // alert("something went wrong , try again");
@@ -100,7 +98,7 @@ function MainPage() {
     };
 
     getCandidates();
-  }, [0]);
+  }, []);
 
   const colors = ["#8884d8", "#82ca9d", "#ffc658", "#d0ed57"];
 

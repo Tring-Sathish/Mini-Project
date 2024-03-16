@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import Illustration from "../../assets/illustrations/no_user.svg";
 import { Center } from "@chakra-ui/react";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { getProfilePic, getAllEmployees } from "../../../src/Pages/hasura-query.ts";
 
 function MainPageOfEmployees() {
@@ -46,7 +45,7 @@ function MainPageOfEmployees() {
         org_id: localStorage.getItem("organization_id")
       }
     })
-  }, [0]);
+  }, []);
 
   return (
     <div className="flex bg-white">
@@ -66,12 +65,13 @@ function MainPageOfEmployees() {
           </Link>
         </div>
 
-        {employee == null ? <div>
+        {employee === null ? <div>
         <img
           src={Illustration}
           width={350}
           height={300}
           className="block m-auto mt-20"
+          alt="img"
         ></img>
         <h2 className="heading2b text-center mt-12">
           Currently no active employee
@@ -118,7 +118,7 @@ function MainPageOfEmployees() {
                   <div className="flex items-center gap-3">
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
-                        <img src={"http://127.0.0.1:8081/uploads/" + "" + profileURL} alt="Avatar Tailwind CSS Component" />
+                        <img src={"http://127.0.0.1:8081/uploads/" + profileURL} alt="Avatar Tailwind CSS Component" />
                       </div>
                     </div>
                     <div>

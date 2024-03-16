@@ -133,7 +133,7 @@ function Login() {
                 </div>
               </div>
               {/* Error message part */}
-              {error == null ? null : (
+              {error === null ? null : (
                 <div className="border-2 solid  border-blue-700 bg-blue-700 text-white rounded-lg p-2 w-4/5 ml-2 mt-1 ">
                   <img
                     width={20}

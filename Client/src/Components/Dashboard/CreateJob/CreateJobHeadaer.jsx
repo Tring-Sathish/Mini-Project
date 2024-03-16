@@ -1,14 +1,12 @@
-import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import DownImg from "../../../assets/icons/down.svg";
 import { getAllJobsById } from "../../../Pages/hasura-query.ts"
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 
 function CreateJobHeadaer({ setData }) {
   const [jobStatus, SetJobStatus] = useState(false);
-  const [departmentStatus, SetDepartmentStatus] = useState(false);
   const [getJob] = useLazyQuery(getAllJobsById, {
     onCompleted: (data) => {
       setData(data?.jobs);
@@ -61,7 +59,7 @@ function CreateJobHeadaer({ setData }) {
           Job Status
           <img className="ml-6" src={DownImg}></img>
         </button>
-        {jobStatus == true ? (
+        {jobStatus === true ? (
           <div className="top-36 right-96 absolute  dropdown-bottom">
             <ul
               tabIndex={0}

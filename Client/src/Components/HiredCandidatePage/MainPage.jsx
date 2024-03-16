@@ -1,7 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { getAllJobsById } from "../../Pages/hasura-query.ts"
 import Illustration from "../../assets/illustrations/no_user.svg";
 
@@ -23,7 +22,7 @@ function MainPage() {
           filter: {}
         }
       })
-  }, [0]);
+  }, []);
 
   const navigate = useNavigate();
   return (
@@ -31,7 +30,7 @@ function MainPage() {
       <h2 className="heading3 sm:text-justify text-center sm:font-normal font-medium">
         Hired Candidate Details
       </h2> 
-      { createdJobs?.length == 0 && <><img
+      { createdJobs?.length === 0 && <><img
       src={Illustration}
       width={350}
       height={300}
@@ -64,13 +63,13 @@ function MainPage() {
               </div>
 
               <div className="overflow-hidden">
-                {element.department == "HR" ? (
+                {element.department === "HR" ? (
                   <img
                     className="w-1/2 block m-auto p-2"
                     src="https://cdn.dribbble.com/users/878959/screenshots/4460762/hr.png"
                     alt=""
                   />
-                ) : element.department == "IT" ? (
+                ) : element.department === "IT" ? (
                   <img
                     className="w-1/2 block m-auto p-2"
                     src="https://img.freepik.com/premium-vector/back-end-development-abstract-concept-vector-illustration_107173-25072.jpg"
