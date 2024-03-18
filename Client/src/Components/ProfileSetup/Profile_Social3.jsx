@@ -26,6 +26,7 @@ function Profile_Social3() {
 
   const [username, setUserName ] = useState();
   const [getUser] = useLazyQuery(getUserById, {
+    fetchPolicy: "network-only",
     onCompleted: (data) => {
     setUserName(data?.users?.[0]?.username);
     },
@@ -55,12 +56,8 @@ function Profile_Social3() {
     phoneNo: Office_Profile.office_details.office_Value.phone_no,
     website: Office_Profile.office_details.office_Value.website,
     // logo_url: Office_Profile.office_details.office_Value.logo.image,
-    departments: [{
-      list: Office_Profile.office_details.office_Value.department.options,
-    }],
-
+    departments: Office_Profile.office_details.office_Value.department.options,
     office_address: Office_Profile.office_details.office_Value.office_location,
-
     office_city: Office_Profile.office_details.office_Value.city,
     office_country: Office_Profile.office_details.office_Value.country,
     region: Office_Profile.office_details.office_Value.region,

@@ -8,6 +8,7 @@ import { useLazyQuery } from "@apollo/client";
 function CreateJobHeadaer({ setData }) {
   const [jobStatus, SetJobStatus] = useState(false);
   const [getJob] = useLazyQuery(getAllJobsById, {
+    fetchPolicy: "network-only",
     onCompleted: (data) => {
       setData(data?.jobs);
     },
@@ -17,24 +18,22 @@ function CreateJobHeadaer({ setData }) {
   })
 
   const filterShowClosedJobs = () => {
-    if(localStorage.getItem("organization_id")) {
       getJob({
         variables: {
           orgId: localStorage.getItem("organization_id"),
-          filter: {"job_status": { "_eq": "closed"}}
+          filter: {"job_status": { "_eq": "Closed"}}
         }
-      })
-    }  
+      });
+      SetJobStatus(!jobStatus);
   };
   const filterShowActiveJobs = () => {
-    if(localStorage.getItem("organization_id")) {
       getJob({
         variables: {
           orgId: localStorage.getItem("organization_id"),
-          filter: {"job_status": { "_eq": "active"}}
+          filter: {"job_status": { "_eq": "Active"}}
         }
-      })
-    }
+      });
+      SetJobStatus(!jobStatus);
   };
 
   return (

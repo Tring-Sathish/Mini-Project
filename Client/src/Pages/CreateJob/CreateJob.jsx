@@ -12,6 +12,7 @@ import Illustration from "../../assets/illustrations/no_user.svg";
 function CreateJob() {
   const [data, setData] = useState();
   const [getJob] = useLazyQuery(getAllJobsById, {
+    fetchPolicy: "network-only",
     onCompleted: (data) => {
       setData(data?.jobs);
     },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
@@ -6,24 +6,23 @@ import Illustration from "../../assets/illustrations/no_user.svg";
 import { Center } from "@chakra-ui/react";
 import { useLazyQuery } from "@apollo/client";
 import { getProfilePic, getAllEmployees } from "../../../src/Pages/hasura-query.ts";
+import { globalContext } from "../../App.js";
 
 function MainPageOfEmployees() {
 
+  const { globalState, handleGlobalState } = useContext(globalContext);
   const [employee,setEmployee] = useState();
   useEffect(() => {
-    // axios POST request
-    if(localStorage.getItem("organization_id")) {
     getEmployee({
       variables: {
         orgId: localStorage.getItem("organization_id")
       }
     })
-  }
-  }, []);
-
+  }, [globalState.employeeAddRefresh]);
   const [profileURL, setProfileURL] = useState();
 
   const [getPic] = useLazyQuery(getProfilePic, {
+    fetchPolicy: "network-only",
     onCompleted: (data) => {
       setProfileURL(data?.organizations?.[0]?.logo?.split("\\")[1]);
     },
@@ -33,8 +32,12 @@ function MainPageOfEmployees() {
   })
 
   const [getEmployee] = useLazyQuery(getAllEmployees, {
+    fetchPolicy:"network-only",
     onCompleted: (data) => {
       setEmployee(data?.employees)
+      const tempstate = {...globalState};
+      tempstate.employeeAddRefresh =  false;
+      handleGlobalState(tempstate);
     },
     onError: (e) => {
       console.log("Error",e);
@@ -47,7 +50,7 @@ function MainPageOfEmployees() {
         org_id: localStorage.getItem("organization_id")
       }
     })
-  }, []);
+  }, [globalState.employeeAddRefresh]);
 
   return (
     <div className="flex bg-white">
@@ -114,7 +117,7 @@ function MainPageOfEmployees() {
             </thead>
             <tbody>
               {/* row 1 */}
-            { employee.map((a) => (
+            { employee?.map((a) => (
               <tr>
                 <td>
                   <div className="flex items-center gap-3">

@@ -4,6 +4,8 @@ import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import { useNavigate, useParams } from "react-router-dom";
 import Illustration from "../../assets/illustrations/no_user.svg";
+import { getAllJobsById } from "../../Pages/hasura-query.ts";
+import { useLazyQuery } from "@apollo/client";
 
 function Jobss() {
   const [data, setData] = useState([]);
@@ -13,28 +15,25 @@ function Jobss() {
   const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
   const [showModal, setShowModal] = useState(false);
 
+  const [getJob] = useLazyQuery(getAllJobsById, {
+    fetchPolicy: "network-only",
+    onCompleted: (data) => {
+      setData(data?.jobs);
+      setOrg(data?.jobs?.jobToOrg);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+      alert("Kindly fill the complete form.");
+    }
+  })
+  
   useEffect(() => {
-    const fetchData = async () => {
-      const options = {
-        url: "http://localhost:8080/job/get-jobs",
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json;charset=UTF-8"
-        },
-        data: { id: id },
-      };
-      try {
-        const response = await axios(options);
-        setData(response.data.jobs);
-        setOrg(response.data.org);
-      } catch (error) {
-        console.log("Error:", error);
-        alert("Kindly fill the complete form.");
+    getJob({
+      variables: {
+        orgId: id,
+        filter: {}
       }
-    };
-
-    fetchData();
+    })
   }, [id]);
 
   const navigate = useNavigate();
@@ -81,12 +80,12 @@ function Jobss() {
                 <div
                   className="card card-side bg-base-100 shadow-xl"
                   key={index}
-                  onClick={() => openModal(e._id)}
+                  onClick={() => openModal(e.id)}
                 >
                   <figure>
                     <img
                       height={200}
-                      src={imageSrc + org.logo?.split("\\")?.[1]}
+                      src={imageSrc + org?.logo?.split("\\")?.[1]}
                       alt="Movie"
                     />
                   </figure>

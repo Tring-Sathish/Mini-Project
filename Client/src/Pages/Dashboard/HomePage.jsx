@@ -23,6 +23,7 @@ function HomePage() {
   const [organizationDeatails, setOrganizationDetails] = useState();
   
   const [ getUser ] = useLazyQuery(getUserById, {
+    fetchPolicy: "network-only",
     onCompleted: (data) => {
       if (data?.users?.[0]?.org_registered === true) {
         setOrganizationData(data?.users?.[0]);
@@ -36,6 +37,7 @@ function HomePage() {
   });
 
   const [ getOrganization ] = useLazyQuery(getOrganizationById, {
+    fetchPolicy: "network-only",
     onCompleted: (data) => {
         const arr = Object.entries(data?.organizations?.[0]);
         setOrganizationDetails(arr);
@@ -62,7 +64,7 @@ function HomePage() {
       })
     }
     // eslint-disable-next-line
-  }, [profileSetup]);
+  }, [profileSetup,localStorage.getItem("organization_id")]);
 
   const depImages = [DepartmentPhoto, DepartmentPhoto2, DepartmentPhoto3];
 

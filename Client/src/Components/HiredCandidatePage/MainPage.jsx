@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
-import { getAllJobsById } from "../../Pages/hasura-query.ts"
+import { getAllJobsById } from "../../Pages/hasura-query.ts";
 import Illustration from "../../assets/illustrations/no_user.svg";
 
 function MainPage() {
   const [createdJobs, setCreatedJobs] = useState();
 
   const [getJob] = useLazyQuery(getAllJobsById, {
+    fetchPolicy: "network-only",
     onCompleted: (data) => {
       setCreatedJobs(data?.jobs);
     },
@@ -45,7 +46,7 @@ function MainPage() {
         {createdJobs?.map((element, index) => {
           return (
             <div
-              onClick={() => navigate(`details/${element._id}`)}
+              onClick={() => navigate(`details/${element.id}`)}
               key={index}
               className="cursor-pointer bg-white border border-solid border-gray-200 shadow-md rounded-lg w-80 h-72 pb-2
         hover:bg-gray-50

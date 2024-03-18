@@ -10,13 +10,8 @@ import { Provider } from "react-redux";
 // import { Analytics } from "@vercel/analytics/react";
 import {ApolloClient, ApolloProvider,InMemoryCache,from,ApolloLink,HttpLink,} from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { onError } from "@apollo/client/link/error";
-
-
 
 const httpLink = new HttpLink({ uri: "http://localhost:9090/v1/graphql" });
-
-
 
 export const getToken = async () => {
   const id_token = localStorage.getItem('token');

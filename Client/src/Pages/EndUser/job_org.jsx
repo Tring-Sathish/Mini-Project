@@ -4,21 +4,25 @@ import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import { useNavigate } from "react-router-dom";
 import Illustration from "../../assets/illustrations/no_user.svg";
+import { getAllOrgs } from "../../Pages/hasura-query.ts"
+import { useLazyQuery } from "@apollo/client"
 
 function JobOrg() {
   const [data, setData] = useState();
   const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/")
 
+  const [ getOrgs ] = useLazyQuery(getAllOrgs, {
+    fetchPolicy: "network-only",
+    onCompleted: (data) => {
+      setData(data.organizations);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(
-        "http://localhost:8080/job/get-all-jobs"
-      );
-      setData(response.data.fetchAllPostedJobs);
-    };
-
-    fetchData();
-  }, [0]);
+    getOrgs();
+  }, []);
   
   const navigate = useNavigate();
   const handleMe = (id) => {};
@@ -52,9 +56,9 @@ function JobOrg() {
               <>
                 <div className="card w-80 bg-base-100 shadow-xl" 
                   onClick={() =>
-                    handleMe(navigate(`/portal/job/${e._id}`))
+                    handleMe(navigate(`/portal/job/${e.id}`))
                   } >
-                    <figure><img style={{marginTop: "10px"}} width={150} src={ imageSrc + e?.logo.split("\\")?.[1] } alt="Shoes" /></figure>
+                    <figure><img style={{marginTop: "10px"}} width={150} src={ imageSrc + e?.logo?.split("\\")?.[1] } alt="Shoes" /></figure>
                     <div className="divider"></div> 
                     <div className="card-body">
                         <h2 className="card-title">{ e?.organization_name }</h2>

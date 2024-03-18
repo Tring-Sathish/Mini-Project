@@ -121,33 +121,6 @@
               affected_rows
             }
           }
-      - name: getAllJobsById
-        query: |
-          query getAllJobsById ($orgId: uuid!) {
-            jobs(where: {org_id:{_eq:$orgId}}) {
-              id
-              applicants_no
-              city
-              country
-              department
-              jobPosition
-              jobType
-              job_description
-              job_status
-              numberOfSeats
-              officeLocation
-              org_id
-              org_name
-              report_city
-              report_educational_level
-              report_experience
-              report_male_vs_female
-              report_status
-              report_university
-              salaryRangeFrom
-              salaryRangeUpto
-            }
-          }
       - name: insertJobs
         query: |
           mutation insertJobs ($data: [jobs_insert_input!]!) {
@@ -176,5 +149,70 @@
                 salaryRangeUpto
               }
               affected_rows
+            }
+          }
+      - name: getAllOrgs
+        query: |
+          query getAllOrgs {
+            organizations {
+              id
+              departments
+              fb_url
+              insta_url
+              linkedIn_url
+              logo
+              office_address
+              office_city
+              office_country
+              organization_name
+              phoneNo
+              region
+              username
+              website
+              yt_url
+            }
+          }
+      - name: getAllJobsById
+        query: |
+          query getAllJobsById ($orgId: uuid!, $filter: [jobs_bool_exp!]) {
+            jobs(where: {org_id:{_eq:$orgId},_and:$filter}) {
+              id
+              applicants_no
+              city
+              country
+              department
+              jobPosition
+              jobType
+              job_description
+              job_status
+              numberOfSeats
+              officeLocation
+              org_id
+              org_name
+              report_city
+              report_educational_level
+              report_experience
+              report_male_vs_female
+              report_status
+              report_university
+              salaryRangeFrom
+              salaryRangeUpto
+              jobToOrg {
+                departments
+                fb_url
+                id
+                insta_url
+                linkedIn_url
+                logo
+                office_address
+                office_city
+                office_country
+                organization_name
+                phoneNo
+                region
+                username
+                website
+                yt_url
+              }
             }
           }

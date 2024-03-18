@@ -1,15 +1,18 @@
-import React,{useState} from "react";
-import axios from "axios";
+import React,{useState, useContext} from "react";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import ProfilePic from "../../assets/icons/profileIcon.png";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { insertEmployee } from "../../Pages/hasura-query.ts"
+import { useNavigate } from "react-router-dom";
+import { globalContext } from "../../App.js";
 
 function AddNewEmployee() {
 
   const org_id = localStorage.getItem("organization_id")
+  const { globalState, handleGlobalState } = useContext(globalContext);
   const [data,setData] = useState();
+  const navigate = useNavigate();
   const [employee, setEmployee] = useState({
     org_id: org_id,
     name: "",
@@ -24,6 +27,10 @@ function AddNewEmployee() {
   const [ addEmployee ] = useMutation(insertEmployee, {
     onCompleted: (data) => {
       setData(data);
+      const tempstate = {...globalState};
+      tempstate.employeeAddRefresh = true;
+      handleGlobalState(tempstate);
+      navigate("/employees");
     },
     onError: (e) => {
       console.log("Error",e);

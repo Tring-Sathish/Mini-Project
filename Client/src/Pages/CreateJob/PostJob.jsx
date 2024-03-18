@@ -3,12 +3,12 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { insertJob, insertJobs } from "../../Pages/hasura-query.ts"
+import { useMutation } from "@apollo/client";
+import { insertJobs } from "../../Pages/hasura-query.ts"
 
 
 import Confetti from "react-confetti";
@@ -22,7 +22,6 @@ function PostJob() {
   const count = useSelector(
     (state) => state.OrganizationDetailsReducer.apiData
   );
-  console.log(count);
   var org_data = [];
   org_data.push(count?.[8][1]);
   org_data.push(count?.[9][1]);

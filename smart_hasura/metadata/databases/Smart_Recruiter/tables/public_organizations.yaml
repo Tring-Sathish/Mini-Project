@@ -41,10 +41,7 @@ object_relationships:
 insert_permissions:
   - role: user
     permission:
-      check:
-        OrgToUsr:
-          id:
-            _eq: X-Hasura-User-Id
+      check: {}
       columns:
         - departments
         - fb_url

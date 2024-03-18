@@ -12,6 +12,7 @@ function TopNavigationBar({ title }) {
   const [showList, setShowList] = useState(false);
 
   const [getPic] = useLazyQuery(getProfilePic, {
+    fetchPolicy: "network-only",
     onCompleted: (data) => {
       setProfileURL(data?.organizations?.[0]?.logo?.split("\\")[1]);
     },

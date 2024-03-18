@@ -5,7 +5,7 @@ import { object, string } from "yup";
 import MainButton from "../../Components/Common/MainButton";
 import ErrorLogo from "../../assets/icons/error.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { signIn } from "../hasura-query.ts"
 
 function Login() {

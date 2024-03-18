@@ -16,7 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { object, string, ref, date } from "yup";
 import MainButton from "../../Components/Common/MainButton";
 import ErrorLogo from "../../assets/icons/error.png";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { signUp } from "../hasura-query.ts"
 
 function Registration() {

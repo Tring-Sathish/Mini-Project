@@ -107,8 +107,8 @@ mutation insertEmployee($data: [employees_insert_input!]!) {
 `;
 
 export const getAllJobsById = gql`
-query getAllJobsById($orgId: uuid!) {
-  jobs(where: {org_id: {_eq: $orgId}}) {
+query getAllJobsById($orgId: uuid!, $filter: [jobs_bool_exp!]) {
+  jobs(where: {org_id: {_eq: $orgId}, _and: $filter}) {
     id
     applicants_no
     city
@@ -130,6 +130,23 @@ query getAllJobsById($orgId: uuid!) {
     report_university
     salaryRangeFrom
     salaryRangeUpto
+    jobToOrg {
+      departments
+      fb_url
+      id
+      insta_url
+      linkedIn_url
+      logo
+      office_address
+      office_city
+      office_country
+      organization_name
+      phoneNo
+      region
+      username
+      website
+      yt_url
+    }
   }
 }
 `;
@@ -161,6 +178,28 @@ mutation insertJobs($data: [jobs_insert_input!]!) {
       salaryRangeUpto
     }
     affected_rows
+  }
+}
+`;
+
+export const getAllOrgs = gql`
+query getAllOrgs {
+  organizations {
+    id
+    departments
+    fb_url
+    insta_url
+    linkedIn_url
+    logo
+    office_address
+    office_city
+    office_country
+    organization_name
+    phoneNo
+    region
+    username
+    website
+    yt_url
   }
 }
 `;

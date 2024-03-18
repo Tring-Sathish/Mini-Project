@@ -17,6 +17,7 @@ import PostJob from "./Pages/CreateJob/PostJob";
 import JobDetails from "./Pages/CreateJob/JobDetails";
 // import PostedJobs from "./Pages/EndUser/postedJobs";
 import Jobss from "./Pages/EndUser/Jobss";
+import JobOrg from "./Pages/EndUser/job_org";
 import PostedJobDescription from "./Pages/EndUser/PostedJobDescription";
 import PostedJobApplyForm from "./Pages/EndUser/PostedJobApplyForm";
 
@@ -32,7 +33,7 @@ import WithdrawnDetails from "./Pages/RecruitmentCycle/WithdrawnDetails";
 import HiredCandidate from "./Pages/HiredCandidates/HiredCandidate";
 import HiredCandidateDetails from "./Pages/HiredCandidates/HiredCandidatesDetails";
 import MainPage from "./Pages/Report/MainPage";
-import { useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import MainPageOfEmployees from "./Pages/Employees/MainPageOfEmployees";
 import AddNewEmployee from "./Pages/Employees/AddNewEmployee";
 import MainPageOfSetting from "./Pages/Settings/MainPageOfSetting";
@@ -40,10 +41,26 @@ import Setting_EditProfile from "./Pages/Settings/Setting_EditProfile";
 import ProtectedRoute from "./Components/Common/ProtectedRoute";
 import NotPageFound404 from "./Pages/Dashboard/NotPageFound404";
 
+export const initialState = {
+  employeeAddRefresh: false
+};
+
+export const globalContext = createContext({
+  globalState: initialState,
+  handleGlobalState: (obj) => {
+    return obj;
+  },
+});
+
 function App() {
 
-  const org_id = localStorage.getItem("organization_id")
+  const org_id = localStorage.getItem("organization_id");
+  const [globalState, setGlobalState] = useState(initialState); // Define globalState using useState
+  const handleGlobalState = (obj) => {
+    setGlobalState(obj);
+  };
   return (
+    <globalContext.Provider value={{ globalState, handleGlobalState }}>
     <div>
       <Routes>
         <Route element={<ProtectedRoute />}>
@@ -121,7 +138,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgetpwd" element={<ForgetPassword />} />
         <Route path="/register" element={<Registration />} />
-        <Route path="/portal/job" element={<Jobss />} />
+        <Route path="/portal/org" element={<JobOrg />} />
+        <Route path="/portal/job/:id" element={<Jobss />} />
         <Route
           path="portal/job/description/:id"
           element={<PostedJobDescription />}
@@ -129,6 +147,7 @@ function App() {
         <Route path="portal/job/apply/:id" element={<PostedJobApplyForm />} />
       </Routes>{" "}
     </div>
+    </globalContext.Provider>
   );
 }
 

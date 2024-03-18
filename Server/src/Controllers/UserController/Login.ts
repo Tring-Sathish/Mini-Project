@@ -42,7 +42,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 
         const JWT_CONFIG: jwt.SignOptions = {
             algorithm: HASURA_GRAPHQL_JWT_SECRET.type as jwt.Algorithm,
-            expiresIn: "10h",
+            expiresIn: "2h",
         };
 
         const payload = {
