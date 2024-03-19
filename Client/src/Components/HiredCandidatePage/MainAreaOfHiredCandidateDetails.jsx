@@ -7,7 +7,7 @@ import NoUser from "../../assets/illustrations/no_user.svg";
 function MainAreaOfHiredCandidateDetails() {
   const [user, setUser] = useState();
   const [name,setName] = useState();
-  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/")
+  const [imageSrc, setImageSrc] = useState("/docs/")
   let { id } = useParams();
 
   useEffect(() => {
@@ -51,7 +51,7 @@ function MainAreaOfHiredCandidateDetails() {
         {user?.length !== 0 ? (
           user?.map((e, index) => {
             var educationLevelLastValue = e?.level.slice(-1)[0];
-            var img = e?.profilePic.split("\\")?.[1];
+            var img = e?.profilePic;
             return (
               <div
                 key={index}

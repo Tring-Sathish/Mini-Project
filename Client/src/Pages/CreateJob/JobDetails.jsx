@@ -12,7 +12,7 @@ import NoUser from "../../assets/illustrations/no_user.svg";
 function JobDetails() {
   const { id } = useParams();
   const [candidates, setCandidates] = useState();
-  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
+  const [imageSrc, setImageSrc] = useState("/docs/");
   useEffect(() => {
     const fetchData = () => {
       // dispath(startFetchingCandidatesData());
@@ -67,7 +67,7 @@ function JobDetails() {
               COMPONENTS */}
               {candidates?.length !== 0 ? (
                 candidates?.map((e, index) => {
-                  const img_url = e?.profilePic.split("\\");
+                  const img_url = e?.profilePic;
                   return (
                     <>
                       <div
@@ -85,7 +85,7 @@ function JobDetails() {
                               "height": "80%",
                               "width" : "25%"
                             }}
-                            src={"http://127.0.0.1:8081/uploads/" + "" + img_url[1]}
+                            src={"/docs/" + "" + img_url[1]}
                             alt=""
                             // className="rounded-full w-16 md:w-28 lg:w-28"
                           />

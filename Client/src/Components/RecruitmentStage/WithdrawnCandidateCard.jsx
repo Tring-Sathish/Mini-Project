@@ -42,7 +42,7 @@ function WithdrawnCandidateCard({ id }) {
   }, [0]);
 
   const navigate = useNavigate();
-  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
+  const [imageSrc, setImageSrc] = useState("/docs/");
   return (
     <div>
       {candidate?.length !== 0 ? (
@@ -61,7 +61,7 @@ function WithdrawnCandidateCard({ id }) {
                 <div className="m-auto ">
                   <img
                     width={150}
-                    src={ imageSrc + e?.profilePic.split("\\")[1]}
+                    src={ imageSrc + e?.profilePic}
                     alt=""
                     className="rounded-full "
                   />

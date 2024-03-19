@@ -2,20 +2,47 @@ import React from "react";
 import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import NavigationTab from "../Dashboard/ProfileCreation/NavigationTab";
+import axios from "axios";
 
 function ProfileP1() {
   const navigate = useNavigate();
-
   const [selectedImage, setSelectedImage] = useState();
-
-  // --> To Handle Input Fields
   const [profileData, SetProfileData] = useState({
     name: "",
     phone_no: "",
     website: "",
   });
 
-  console.log(selectedImage);
+  const getProfileUrl = () => {
+    const options = {
+      url: "http://localhost:8082/upload",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+      data: {
+        data: selectedImage,
+      },
+    };
+
+    axios(options)
+      .then((response) => {
+        setSelectedImage(response?.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+  const handleNext = () => {
+    if (selectedImage) {
+      getProfileUrl();
+    }
+    navigate("/profilesetup/organization", {
+      state: { basicInfo: profileData, image: selectedImage },
+    })
+  }
+
   return (
     <div>
       {" "}
@@ -116,11 +143,7 @@ function ProfileP1() {
         </div>
         <button
           type="button"
-          onClick={() =>
-            navigate("/profilesetup/organization", {
-              state: { basicInfo: profileData, image: selectedImage },
-            })
-          }
+          onClick={handleNext}
           className=" mt-12 btnfont btn btn-wide  bg-primary border-none hover:bg-black text-center m-auto block "
         >
           NEXT{" "}

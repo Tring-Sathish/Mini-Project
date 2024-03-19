@@ -24,7 +24,7 @@ function MainPageOfEmployees() {
   const [getPic] = useLazyQuery(getProfilePic, {
     fetchPolicy: "network-only",
     onCompleted: (data) => {
-      setProfileURL(data?.organizations?.[0]?.logo?.split("\\")[1]);
+      setProfileURL(data?.organizations?.[0]?.logo);
     },
     onError: (e) => {
       console.log("Error",e);
@@ -82,22 +82,6 @@ function MainPageOfEmployees() {
           Currently no active employee
         </h2>
         </div> : 
-      //   <div className="flex gap-8 mt-12 flex-wrap justify-center items-center mb-12">
-      //   {employee.map((e) => (
-      //   <div htmlFor="my_modal_6" className="btn" style={{"margin": "15px"}}>
-      //     <div className="card w-56 bg-base-100 shadow-xl image-full">
-      //       <figure><img src={"http://127.0.0.1:8081/uploads/" + "" + profileURL} alt="Shoes" /></figure>
-      //       <div className="card-body">
-      //         <h2 className="card-title">{e.name}</h2>
-      //         <h2 className="card-title">{e.email}</h2>
-      //         {/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
-      //         {/* <div className="card-actions justify-end">
-      //           <button className="btn btn-primary">Buy Now</button>
-      //         </div> */}
-      //       </div>
-      //     </div>      
-      //   </div>))} 
-      // </div>
         <div className="overflow-x-auto flex" style={{
           alignItems: Center,
           marginLeft: "20%",
@@ -123,7 +107,7 @@ function MainPageOfEmployees() {
                   <div className="flex items-center gap-3">
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
-                        <img src={"http://127.0.0.1:8081/uploads/" + profileURL} alt="Avatar Tailwind CSS Component" />
+                        <img src={"/docs/" + profileURL} alt="Avatar Tailwind CSS Component" />
                       </div>
                     </div>
                     <div>

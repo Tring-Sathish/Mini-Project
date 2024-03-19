@@ -9,7 +9,7 @@ import { useLazyQuery } from "@apollo/client"
 
 function JobOrg() {
   const [data, setData] = useState();
-  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/")
+  const [imageSrc, setImageSrc] = useState("/docs/")
 
   const [ getOrgs ] = useLazyQuery(getAllOrgs, {
     fetchPolicy: "network-only",
@@ -54,11 +54,11 @@ function JobOrg() {
           {data?.map((e, index) => {
             return (
               <>
-                <div className="card w-80 bg-base-100 shadow-xl" 
+                <div key={index} className="card w-80 bg-base-100 shadow-xl" 
                   onClick={() =>
                     handleMe(navigate(`/portal/job/${e.id}`))
                   } >
-                    <figure><img style={{marginTop: "10px"}} width={150} src={ imageSrc + e?.logo?.split("\\")?.[1] } alt="Shoes" /></figure>
+                    <figure><img style={{marginTop: "10px"}} width={150} src={ "/docs/" + e?.logo } alt="" /></figure>
                     <div className="divider"></div> 
                     <div className="card-body">
                         <h2 className="card-title">{ e?.organization_name }</h2>

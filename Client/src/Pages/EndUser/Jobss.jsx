@@ -12,7 +12,7 @@ function Jobss() {
   const [org, setOrg] = useState({});
   const { id } = useParams();
   const [jobId, setJobId] = useState();
-  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
+  const [imageSrc, setImageSrc] = useState("/docs/");
   const [showModal, setShowModal] = useState(false);
 
   const [getJob] = useLazyQuery(getAllJobsById, {
@@ -85,7 +85,7 @@ function Jobss() {
                   <figure>
                     <img
                       height={200}
-                      src={imageSrc + org?.logo?.split("\\")?.[1]}
+                      src={imageSrc + e?.jobToOrg?.logo}
                       alt="Movie"
                     />
                   </figure>

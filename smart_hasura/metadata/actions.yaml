@@ -2,7 +2,7 @@ actions:
   - name: Register
     definition:
       kind: synchronous
-      handler: https://organic-seriously-dane.ngrok-free.app/register
+      handler: http://host.docker.internal:8082/register
       forward_client_headers: true
       request_transform:
         method: POST
@@ -14,7 +14,7 @@ actions:
   - name: signIn
     definition:
       kind: synchronous
-      handler: https://organic-seriously-dane.ngrok-free.app/login
+      handler: http://host.docker.internal:8082/login
       forward_client_headers: true
     permissions:
       - role: anonymous

@@ -41,7 +41,7 @@ function InterviewingCandidateListCard({ id }) {
       {user?.length !== 0 ? (
         user?.map((e, index) => {
           var educationLevelLastValue = e?.level.slice(-1)[0];
-          const img_url = e?.profilePic.split("\\");
+          const img_url = e?.profilePic;
           return (
             <div
               key={index}
@@ -59,7 +59,7 @@ function InterviewingCandidateListCard({ id }) {
                         "height": "130px",
                         "width" : "25%"
                       }}
-                      src={"http://127.0.0.1:8081/uploads/" + "" + img_url[1]}
+                      src={"/docs/" + "" + img_url}
                       alt=""
                       className="rounded-lg "
                     />

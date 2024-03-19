@@ -14,8 +14,8 @@ function AppliedApplicantProfile({ id }) {
   const [modal, setModal] = useState(false);
   const [modalValue, setModalValue] = useState("none");
   const [userData, setUserData] = useState();
-  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/")
-  const [resumeSrc, setResumeSrc] = useState("http://127.0.0.1:8081/uploads/")
+  const [imageSrc, setImageSrc] = useState("/docs/")
+  const [resumeSrc, setResumeSrc] = useState("/docs/")
   useEffect(() => {
     const fetchData = () => {
       // axios POST request
@@ -31,10 +31,10 @@ function AppliedApplicantProfile({ id }) {
 
       axios(options).then((response) => {
         setUserData(response.data);
-        const img_url = response?.data?.profilePic.split("\\")
-        const resume_url = response?.data?.ResumeURL.split("\\")
-        setImageSrc(imageSrc + img_url[1])
-        setResumeSrc(resumeSrc + resume_url[1])
+        const img_url = response?.data?.profilePic;
+        const resume_url = response?.data?.ResumeURL;
+        setImageSrc(imageSrc + img_url)
+        setResumeSrc(resumeSrc + resume_url)
 
       });
     };

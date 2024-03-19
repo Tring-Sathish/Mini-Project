@@ -51,7 +51,7 @@ function ReccomendedCandidateDetailsCard({ id, user, SetUser, setID }) {
     return rating;
   };
   const rating = calculateFeebackPercentage(user?.feedback_form);
-  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
+  const [imageSrc, setImageSrc] = useState("/docs/");
   return (
     <div className="flex flex-row">
       {/* ****************************************************
@@ -61,7 +61,7 @@ function ReccomendedCandidateDetailsCard({ id, user, SetUser, setID }) {
         <img
           width={150}
           className="rounded-lg"
-          src={imageSrc + user?.profilePic.split("\\")[1]}
+          src={imageSrc + user?.profilePic}
           alt=""
           srcset=""
         />
@@ -83,7 +83,7 @@ function ReccomendedCandidateDetailsCard({ id, user, SetUser, setID }) {
             </label>
             <object
               className="rounded-xl ml-1"
-              data={imageSrc + user?.ResumeURL.split("\\")[1]}
+              data={imageSrc + user?.ResumeURL}
               type="application/pdf"
               width="100%"
               height="100%"

@@ -13,7 +13,7 @@ function HiredCandidates({ id }) {
   const [mail, setMail] = useState(false);
   const [description, setDiscription] = useState();
   const [emailTitle, setEmailTitle] = useState("Congrats you are Hired");
-  const [imageSrc, setImageSrc] = useState("http://127.0.0.1:8081/uploads/");
+  const [imageSrc, setImageSrc] = useState("/docs/");
   const [jobInfo, setJobInfo] = useState({
     job_id: "",
     organization_name: "",
@@ -196,7 +196,7 @@ function HiredCandidates({ id }) {
                 <div className="m-auto ">
                   <img
                     width={150}
-                    src={imageSrc + e?.profilePic.split("\\")[1]}
+                    src={imageSrc + e?.profilePic}
                     alt=""
                     className="rounded-full "
                   />

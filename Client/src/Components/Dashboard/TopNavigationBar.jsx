@@ -14,7 +14,7 @@ function TopNavigationBar({ title }) {
   const [getPic] = useLazyQuery(getProfilePic, {
     fetchPolicy: "network-only",
     onCompleted: (data) => {
-      setProfileURL(data?.organizations?.[0]?.logo?.split("\\")[1]);
+      setProfileURL(data?.organizations?.[0]?.logo);
     },
     onError: (e) => {
       console.log("Error",e);
@@ -225,7 +225,7 @@ function TopNavigationBar({ title }) {
               <div className="w-10 rounded-full">
                 {/* //this need to be dynamic */}
               { profileURL != undefined ?              
-                <img src={"http://127.0.0.1:8081/uploads/" + "" + profileURL} />
+                <img src={"/docs/" + profileURL + ".jpeg"} />
                 : <img src={ProfileIcon} />
               }             
             </div>
@@ -286,7 +286,7 @@ function TopNavigationBar({ title }) {
               <div className="w-10 rounded-full">
                 {/* //this need to be dynamic */}
                 { profileURL != undefined ?              
-                <img src={"http://127.0.0.1:8081/uploads/" + "" + profileURL} />
+                <img src={"/docs/" + profileURL} />
                 : <img src={ProfileIcon} />
               }             
               </div>
