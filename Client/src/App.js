@@ -42,7 +42,8 @@ import ProtectedRoute from "./Components/Common/ProtectedRoute";
 import NotPageFound404 from "./Pages/Dashboard/NotPageFound404";
 
 export const initialState = {
-  employeeAddRefresh: false
+  employeeAddRefresh: false,
+  orgId: ""
 };
 
 export const globalContext = createContext({

@@ -26,10 +26,7 @@ object_relationships:
 insert_permissions:
   - role: user
     permission:
-      check:
-        canToUsr:
-          id:
-            _eq: X-Hasura-User-Id
+      check: {}
       columns:
         - companyName
         - duration
@@ -41,9 +38,12 @@ insert_permissions:
         - session
         - title
         - rating
+        - dobs
+        - sessions
         - address
         - city
         - dob
+        - email
         - firstName
         - gender
         - gitHubProfile

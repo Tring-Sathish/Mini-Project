@@ -1,11 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LeftMenuBar from "../../Components/Dashboard/LeftMenuBar";
 import TopNavigationBar from "../../Components/Dashboard/TopNavigationBar";
 import { useNavigate, useParams } from "react-router-dom";
 import Illustration from "../../assets/illustrations/no_user.svg";
 import { getAllJobsById } from "../../Pages/hasura-query.ts";
 import { useLazyQuery } from "@apollo/client";
+import { globalContext } from "../../App.js";
 
 function Jobss() {
   const [data, setData] = useState([]);
@@ -14,12 +15,16 @@ function Jobss() {
   const [jobId, setJobId] = useState();
   const [imageSrc, setImageSrc] = useState("/docs/");
   const [showModal, setShowModal] = useState(false);
+  const { globalState, handleGlobalState } = useContext(globalContext);
 
   const [getJob] = useLazyQuery(getAllJobsById, {
     fetchPolicy: "network-only",
     onCompleted: (data) => {
       setData(data?.jobs);
       setOrg(data?.jobs?.jobToOrg);
+      const tempstate = {...globalState};
+      tempstate.orgId = data?.jobs?.[0]?.jobToOrg?.id;
+      handleGlobalState(tempstate);
     },
     onError: (e) => {
       console.log("Error",e);

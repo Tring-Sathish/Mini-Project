@@ -203,3 +203,11 @@ query getAllOrgs {
   }
 }
 `;
+
+export const insertCandidates = gql`
+mutation insertCandidates($objects: [candidates_insert_input!]!) {
+  insert_candidates(objects: $objects) {
+    affected_rows
+  }
+}
+`;

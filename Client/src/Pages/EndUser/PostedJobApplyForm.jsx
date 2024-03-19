@@ -2,7 +2,6 @@ import axios from "axios";
 import { React, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
 import {
   FcBusinessman,
   FcGraduationCap,
@@ -11,17 +10,21 @@ import {
   FcCamera,
   FcDocument,
 } from "react-icons/fc";
-
 import { FiPlusCircle } from "react-icons/fi";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Congrats from "../../assets/illustrations/congrats.svg";
 import { BeatLoader } from "react-spinners";
+import { useMutation } from "@apollo/client";
+import { insertCandidates } from "../hasura-query.ts";
+import { globalContext } from "../../App.js";
+import { useContext } from "react";
+
 function PostedJobApplyForm() {
   // __ Modal to show sucess msg when user registration get complete
   const [showModal, setShowModal] = useState(false);
   // __  To store the Date Of Birth
   const [startDate, setStartDate] = useState(new Date());
-
+  const { globalState, handleGlobalState } = useContext(globalContext);
   //to show form when user is seeing modal of success
   const [hideForm, setHideForm] = useState("");
   // __ FORM HANDLING STATES __
@@ -42,7 +45,7 @@ function PostedJobApplyForm() {
     institute: [],
     level: [],
     majors: [],
-    marks: [0,0,0]
+    // marks: [0,0,0]
   });
 
   const [educationSessionInformation, setEducationSessionInformation] =
@@ -68,7 +71,7 @@ function PostedJobApplyForm() {
   });
 
   const [contactInformation, setContactInformation] = useState({
-    emailAddress: "",
+    email: "",
     phoneNo: "",
     linkedinProfile: "",
     gitHubProfile: "",
@@ -89,11 +92,43 @@ function PostedJobApplyForm() {
     setFile(e.target.files[0]);
   };
 
+  const getProfileUrl = (data) => {
+    const options = {
+      url: "http://localhost:8082/upload",
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+      data: {
+        data: data,
+      },
+    };
+    axios(options)
+      .then((response) => {
+        return response?.data;
+      })
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+        alert("kindly fill the complete form ");
+      });
+  }
+
+  const [ insertCan ] = useMutation(insertCandidates, {
+    onCompleted: (data) => {
+      setLoading(!loading);
+      setHideForm("none");
+      setShowModal(true);
+    },
+    onError: (e) => {
+      console.log("Error",e);
+    }
+  })
   const submit = async (e) => {
     e.preventDefault();
-    // const formData = await new FormData();
-    // await formData.append("file", file);
-    //to enable loading animation
+    setFile(getProfileUrl(file));
+    setResume(getProfileUrl(resume));
     setLoading(!loading);
     const DoB = {
       day: startDate.getDate(),
@@ -102,50 +137,25 @@ function PostedJobApplyForm() {
     };
 
     const userData = {
-      image: file,
-      resume: resume,
-      personalInfo: personalInformation,
-      dob: DoB,
-      accadamics: educationalInformation,
-      accadamicsSession: educationSessionInformation,
-      profesional: professionalInformation,
-      contact: contactInformation,
-      org_id: Organization_id,
-      job_id: id,
+      profilePic: file,
+      ResumeURL: resume,
+      ...personalInformation,
+      dobs: DoB,
+      ...educationalInformation,
+      sessions: educationSessionInformation,
+      ...professionalInformation,
+      ...contactInformation,
+      orgID: globalState.orgId,
+      jobID: id,
     };
-    // console.log(userData);
-    const options = {
-      url: "http://localhost:8080/job/apply-to-job",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "multipart/form-data; ",
-      },
-      data: userData,
-    };
-
-    axios(options)
-      .then((response) => {
-        if (response.status === 200) {
-          setLoading(!loading);
-          setHideForm("none");
-          setShowModal(true);
-        } else if (response.status === 206) {
-          setLoading(!loading);
-
-          alert("Enter valid information in Form");
-        } else {
-          setLoading(!loading);
-
-          alert("Enter all information as they were asked");
-        }
-      })
-      .catch((e) => {
-        console.log("E",e)
-        setLoading(false);
-        alert("kindly fill the complete form ");
-      });
+    insertCan({
+      variables: {
+        objects: userData
+      }
+    })
+    const tempstate = {...globalState};
+    tempstate.orgId = "";
+    handleGlobalState(tempstate);
   };
 
   const navigate = useNavigate();
@@ -904,7 +914,7 @@ function PostedJobApplyForm() {
             }}
           />
         </div>
-        <div className="w-12 ml-4">
+        {/* <div className="w-12 ml-4">
           <label htmlFor="session" className="label line1">
             Marks
           </label>
@@ -914,7 +924,7 @@ function PostedJobApplyForm() {
             placeholder="100%"
             maxLength={3}
             required
-            value={educationalInformation.marks[0]}
+            value={educationalInformation?.marks[0]}
             onChange={(e) => {
                 setEducationalInformation((prevState) => ({
                   ...prevState,
@@ -923,7 +933,7 @@ function PostedJobApplyForm() {
             }}
             className="input  input-bordered w-20"
           />
-        </div>
+        </div> */}
 
         <div className=" w-full">
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -1500,7 +1510,7 @@ function PostedJobApplyForm() {
                   }}
                 />
               </div>
-              <div className="w-12 ml-10">
+              {/* <div className="w-12 ml-10">
           <label htmlFor="session" className="label line1">
             Marks
           </label>
@@ -1519,7 +1529,7 @@ function PostedJobApplyForm() {
             }}
             className="input  input-bordered w-20"
           />
-        </div>
+        </div> */}
             </div>
           ) : undefined}
           {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
@@ -2096,7 +2106,7 @@ function PostedJobApplyForm() {
                   }}
                 />
               </div>
-          <div className="w-12 ml-10">
+          {/* <div className="w-12 ml-10">
           <label htmlFor="session" className="label line1">
             Marks
           </label>
@@ -2115,7 +2125,7 @@ function PostedJobApplyForm() {
             }}
             className="input  input-bordered w-20"
           />
-        </div>
+        </div> */}
             </div>
           ) : undefined}
           <FiPlusCircle
@@ -2281,10 +2291,10 @@ function PostedJobApplyForm() {
               onChange={(e) => {
                 setContactInformation((old) => ({
                   ...old,
-                  emailAddress: e.target.value,
+                  email: e.target.value,
                 }));
               }}
-              value={personalInformation.emailAddress}
+              value={personalInformation.email}
             />
           </div>
 
