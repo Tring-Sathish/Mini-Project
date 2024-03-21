@@ -97,3 +97,27 @@ delete_permissions:
         id:
           _eq: X-Hasura-User-Id
     comment: ""
+event_triggers:
+  - name: send_email
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://host.docker.internal:8082/trigger
+    request_transform:
+      body:
+        action: transform
+        template: |-
+          {
+            "table": {
+              "name": {{$body.table.name}},
+              "schema": {{$body.table.schema}}
+            },
+            "data":  {{$body.event.data.new}}
+          }
+      template_engine: Kriti
+      version: 2
