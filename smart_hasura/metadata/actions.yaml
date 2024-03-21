@@ -11,6 +11,13 @@ actions:
         version: 2
     permissions:
       - role: anonymous
+  - name: forgotPassword
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:8082/forgot
+      forward_client_headers: true
+    permissions:
+      - role: user
   - name: signIn
     definition:
       kind: synchronous
@@ -18,14 +25,25 @@ actions:
       forward_client_headers: true
     permissions:
       - role: anonymous
+  - name: updatePass
+    definition:
+      kind: synchronous
+      handler: http://host.docker.internal:8082/updatePass
+      forward_client_headers: true
+    permissions:
+      - role: user
 custom_types:
   enums: []
   input_objects:
     - name: SampleInput
     - name: SignInInput
     - name: RegisterInput
+    - name: passInput
+    - name: pwdInput
   objects:
     - name: SampleOutput
     - name: SignInOutput
     - name: RegisterOutput
+    - name: passOutput
+    - name: pwdOutput
   scalars: []

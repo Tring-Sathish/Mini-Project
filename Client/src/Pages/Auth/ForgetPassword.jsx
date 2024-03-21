@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import MainButton from "../../Components/Common/MainButton";
+import { useMutation } from "@apollo/client";
+import { forgotPassword } from "../hasura-query.ts"
 
 function ForgetPassword() {
   const [error, Seterror] = useState();
@@ -16,46 +18,27 @@ function ForgetPassword() {
     email: string().email("*Follow format").required("*Email is must"),
   });
 
+  const [ forgot ] = useMutation(forgotPassword, {
+    onCompleted: (data) => {},
+    onError: (e) => {
+      console.log("Error",e);
+      Seterror("Error processing password reset request");
+    }
+  })
   // -> handle login api call
   const handleLogin = async (inputData) => {
-    console.log(" i am going to run");
-    const options = {
-      url: "http://localhost:8080/forget-password",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: inputData,
-    };
-
-    axios(options)
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(200);
-
-          navigate("/verifyotp?email=" + inputData.email);
-        }
-      })
-      .catch(function (error) {
-        if (error.response.status === 400) {
-          Seterror("Email address is required");
-        } else if (error.response.status === 404) {
-          Seterror("Email address not found");
-        } else if (error.response.status === 401) {
-          Seterror("Email address is not activated");
-        } else {
-          Seterror("Error processing password reset request");
-        }
-      });
+    forgot({
+      variables: {
+        email: inputData?.email
+      }
+    })
+    navigate("/verifyotp?email=" + inputData?.email);
   };
   const formik = useFormik({
     initialValues: emailValue,
     validationSchema: emailSchema,
     onSubmit: (e) => {
       handleLogin(e);
-      // e.preventDefault();
-      // console.log(e);
     },
   });
   // console.log(error);

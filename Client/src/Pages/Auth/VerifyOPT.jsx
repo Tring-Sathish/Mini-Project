@@ -7,6 +7,8 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import MainButton from "../../Components/Common/MainButton";
+import { verifyUser } from "../hasura-query.ts";
+import { useMutation } from "@apollo/client";
 
 function VerifyOPT() {
   const [inputCode, SetinputCode] = useState([]);
@@ -15,9 +17,32 @@ function VerifyOPT() {
   const location = useLocation();
 
   const navigate = useNavigate();
+  const [ verify ] = useMutation(verifyUser, {
+    onCompleted: (data) => {
+      if (data?.update_users?.affected_rows === 1) {
+        navigate("/newpassword?id=" + data?.update_users?.returning?.[0]?.id);
+      }
+    },
+    onError: (e) => {
+      console.log("Error",e);
+      SetError("Error processing, something went wrong try again");
+    }
+  })
   const handle = (e) => {
     e.preventDefault();
-
+    let otp = "";
+    inputCode.map((e) => { otp = otp + e; return e + ""; });
+    verify({
+      variables: {
+        "email": params,
+        "otp": otp,
+        "_set": {
+          "passwordResetToken": null
+        }
+      }
+    })
+  };
+  useEffect(() => {
     const convertValues = () => {
       if (location && location?.search?.includes("email")) {
         const emailValue = new URLSearchParams(location.search).get("email");
@@ -25,31 +50,7 @@ function VerifyOPT() {
       }
     };
     convertValues();
-    const options = {
-      url: "http://localhost:8080/verify-forget-pwd",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: { params, inputCode },
-    };
-
-    axios(options)
-      .then((response) => {
-        if (response.status === 200) {
-          navigate("/newpassword" + "?id=" + response.data.id);
-        }
-      })
-      .catch(function (error) {
-        if (error.response.status === 404) {
-          SetError("Invalid code try again");
-        } else {
-          SetError("Error processing, something went wrong try again");
-        }
-      });
-  };
-  useEffect(() => {}, [inputCode, params]);
+  }, []);
   return (
     <div>
       {/* component */}

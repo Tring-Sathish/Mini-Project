@@ -88,6 +88,11 @@ query getAllEmployees($orgId: uuid!) {
     id
     name
     org_id
+    experience
+    performance
+    role
+    skill
+    education
   }
 }
 `;
@@ -208,6 +213,33 @@ export const insertCandidates = gql`
 mutation insertCandidates($objects: [candidates_insert_input!]!) {
   insert_candidates(objects: $objects) {
     affected_rows
+  }
+}
+`;
+
+export const forgotPassword = gql`
+mutation forgotPassword($email: String!) {
+  forgotPassword(arg1: {email: $email}) {
+    message
+  }
+}
+`;
+
+export const verifyUser = gql`
+mutation verifyUser($email: String!, $otp: String!, $_set: users_set_input = {}) {
+  update_users(where: {email: {_eq: $email}, passwordResetToken: {_eq: $otp}}, _set: $_set) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+`;
+
+export const updatePass = gql`
+mutation updatePass($id: String!, $password: String!) {
+  updatePass(arg1: {password: $password, id: $id}) {
+    message
   }
 }
 `;

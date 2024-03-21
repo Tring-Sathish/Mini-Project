@@ -7,7 +7,7 @@ import { GET_USER_BY_EMAIL, INSERT_USER } from '../../Config/hasura-query';
 
 dotenv.config();
 
-const sendVerifyEmail = async (name: string, email: string, id: string) => {
+export const sendVerifyEmail = async (name: string, email: string, id: string) => {
   const htmlCode =
     `
     Dear <b> ` +
@@ -168,7 +168,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
     }
     const resp = await QueryHasura(INSERT_USER,{ data })    
     const userId = resp.insert_users_one.id;
-    await sendVerifyEmail(f_name, email, userId);
+    // await sendVerifyEmail(f_name, email, userId);
 
     return res.status(200).json({ message: "Registered Successfully!" });
   } catch (error) {

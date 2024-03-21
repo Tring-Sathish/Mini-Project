@@ -5,9 +5,21 @@ type Mutation {
 }
 
 type Mutation {
+  forgotPassword(
+    arg1: passInput!
+  ): passOutput
+}
+
+type Mutation {
   signIn(
     arg1: SignInInput!
   ): SignInOutput
+}
+
+type Mutation {
+  updatePass(
+    arg1: pwdInput!
+  ): pwdOutput
 }
 
 input SampleInput {
@@ -28,6 +40,15 @@ input RegisterInput {
   f_name: String!
 }
 
+input passInput {
+  email: String!
+}
+
+input pwdInput {
+  password: String!
+  id: String!
+}
+
 type SampleOutput {
   token: String!
   message: String!
@@ -40,6 +61,14 @@ type SignInOutput {
 }
 
 type RegisterOutput {
+  message: String!
+}
+
+type passOutput {
+  message: String!
+}
+
+type pwdOutput {
   message: String!
 }
 

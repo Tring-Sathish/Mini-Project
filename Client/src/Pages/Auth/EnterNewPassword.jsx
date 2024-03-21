@@ -1,9 +1,11 @@
 import { Alert, AlertIcon } from "@chakra-ui/react";
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { object, string, ref } from "yup";
+import { updatePass } from "../hasura-query.ts";
+import { useMutation } from "@apollo/client";
 
 function EnterNewPassword() {
   const [error, SetError] = useState();
@@ -28,44 +30,39 @@ function EnterNewPassword() {
     confirmpwd: "",
   };
 
-  const handleSubmission = (pass) => {
+  useEffect(() => {
     const convertValues = () => {
       if (location && location?.search?.includes("id")) {
-        const emailValue = new URLSearchParams(location.search).get("id");
-        SetIDParam(emailValue);
+        const id = new URLSearchParams(location.search).get("id");
+        SetIDParam(id);
       }
     };
     convertValues();
-    const password = pass.confirmpwd;
-    const options = {
-      url: "http://localhost:8080/new-password",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      data: { id, password },
-    };
+  },[])
 
-    axios(options)
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(200);
-          SetSuccess(true);
-          SetError(false);
-          setTimeout(() => {
-            navigate("/login");
-          }, 1500);
-        }
-      })
-      .catch(function (error) {
-        if (error.response.status === 400) {
-          SetError("Must fill new-password field.");
-        } else {
-          SetError("⚠️  Error processing password reset request try again");
-        }
-      });
+  const [ updatePassword ] = useMutation(updatePass, {
+    onCompleted: (data) => {
+      SetSuccess(true);
+      SetError(false);
+      localStorage.removeItem('token');
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+    },
+    onError: (e) => {
+      SetError("⚠️  Error processing password reset request try again");
+    }
+  })
+  const handleSubmission = (pass) => {
+    const password = pass.confirmpwd;
+    updatePassword({
+      variables: {
+        id: id,
+        password: password
+      }
+    })
   };
+
   const formik = useFormik({
     initialValues: data,
     validationSchema: dataSchema,

@@ -14,7 +14,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     }
     try {
         const userResp = await QueryHasura(GET_USER_BY_EMAIL, { email });
-        const findUser = userResp.users[0]
+        const findUser = userResp.users[0];
         if (!findUser) {
             return res.status(404).json({
                 message: "No such user found",
