@@ -8,10 +8,10 @@ import HomePage from "./Pages/Dashboard/HomePage";
 import VerifyOPT from "./Pages/Auth/VerifyOPT";
 import EnterNewPassword from "./Pages/Auth/EnterNewPassword";
 import ProfileCreation from "./Pages/Dashboard/ProfileCreation/ProfileCreation";
-import Profile_Office from "./Pages/Dashboard/ProfileCreation/Profile-Office";
+import ProfileOffice from "./Pages/Dashboard/ProfileCreation/Profile-Office";
 import ProfileSocial from "./Pages/Dashboard/ProfileCreation/ProfileSocial";
-import ProfileTeam_Members from "./Pages/Dashboard/ProfileCreation/ProfileTeam_Members";
-import Profile_Sucess from "./Pages/Dashboard/ProfileCreation/Profile-Sucess";
+import ProfileTeamMembers from "./Pages/Dashboard/ProfileCreation/ProfileTeam_Members";
+import ProfileSucess from "./Pages/Dashboard/ProfileCreation/Profile-Sucess";
 import CreateJob from "./Pages/CreateJob/CreateJob";
 import PostJob from "./Pages/CreateJob/PostJob";
 import JobDetails from "./Pages/CreateJob/JobDetails";
@@ -37,7 +37,7 @@ import { createContext, useState } from "react";
 import MainPageOfEmployees from "./Pages/Employees/MainPageOfEmployees";
 import AddNewEmployee from "./Pages/Employees/AddNewEmployee";
 import MainPageOfSetting from "./Pages/Settings/MainPageOfSetting";
-import Setting_EditProfile from "./Pages/Settings/Setting_EditProfile";
+import SettingEditProfile from "./Pages/Settings/Setting_EditProfile";
 import ProtectedRoute from "./Components/Common/ProtectedRoute";
 import NotPageFound404 from "./Pages/Dashboard/NotPageFound404";
 
@@ -55,7 +55,6 @@ export const globalContext = createContext({
 
 function App() {
 
-  const org_id = localStorage.getItem("organization_id");
   const [globalState, setGlobalState] = useState(initialState); // Define globalState using useState
   const handleGlobalState = (obj) => {
     setGlobalState(obj);
@@ -72,14 +71,14 @@ function App() {
           <Route path="/profilesetup" element={<ProfileCreation />} />
           <Route
             path="profilesetup/organization"
-            element={<Profile_Office />}
+            element={<ProfileOffice />}
           />
           <Route path="profilesetup/social" element={<ProfileSocial />} />
           <Route
             path="profilesetup/addteam"
-            element={<ProfileTeam_Members />}
+            element={<ProfileTeamMembers />}
           />
-          <Route path="profilesetup/sucess" element={<Profile_Sucess />} />
+          <Route path="profilesetup/sucess" element={<ProfileSucess />} />
           <Route
             path="/JobDetails/applied/:id"
             element={<AppliedCandidateDetails />}
@@ -127,7 +126,7 @@ function App() {
           <Route path="/settings" element={<MainPageOfSetting />}></Route>
           <Route
             path="/settings/profile"
-            element={<Setting_EditProfile />}
+            element={<SettingEditProfile />}
           ></Route>
         </Route>
         {/* **************************** */}

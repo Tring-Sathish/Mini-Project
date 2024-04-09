@@ -6,4 +6,16 @@
         from_env: PG_DATABASE_URL
       isolation_level: read-committed
       use_prepared_statements: false
+  logical_models:
+    - fields:
+        - name: username
+          type:
+            nullable: false
+            scalar: text
+      name: username
+  native_queries:
+    - arguments: {}
+      code: select username from users
+      returns: username
+      root_field_name: getUserName
   tables: "!include Smart_Recruiter/tables/tables.yaml"
